@@ -1,0 +1,86 @@
+/* ============================================================
+   css/components/mobile-nav.css
+   Full-screen overlay navigation for mobile devices.
+   Opens with the .open class; large italic Fraunces links
+   with numbered indices. Controlled by main.js (mobile-nav module).
+   ============================================================ */
+
+/* ── Mobile Nav Overlay ──────────────────────────────────── */
+.mobile-nav {
+  position: fixed;
+  inset: 0;
+  background: var(--green-dark);
+  z-index: 190;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--s16) clamp(var(--s8), 8vw, var(--s28));
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .38s var(--ease-out), visibility .38s;
+}
+.mobile-nav.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+.mobile-nav-links { display: flex; flex-direction: column; gap: var(--s5); }
+.mobile-nav-link {
+  font-family: var(--f-display);
+  font-size: clamp(1.8rem, 6vw, 3.2rem);
+  font-weight: 200;
+  font-style: italic;
+  color: rgba(255,255,255,.8);
+  transition: color var(--dur);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  line-height: 1.1;
+}
+.mobile-nav-link:hover { color: var(--white); }
+.mobile-nav-link span {
+  font-family: var(--f-body);
+  font-size: .68rem;
+  font-style: normal;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.55);
+}
+.mobile-sub {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+  padding-top: var(--s3);
+  padding-left: var(--s4);
+  border-left: 1px solid rgba(255,255,255,.08);
+}
+.mobile-sub a {
+  font-size: .8rem;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.65);
+  transition: color var(--dur);
+}
+.mobile-sub a:hover { color: var(--white); }
+.mobile-nav-footer {
+  margin-top: auto;
+  padding-top: var(--s12);
+  display: flex;
+  gap: var(--s8);
+  flex-wrap: wrap;
+}
+.mobile-nav-footer a {
+  font-size: .7rem;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.58);
+  transition: color var(--dur);
+}
+.mobile-nav-footer a:hover { color: var(--white); }
+
+/* Body padding for fixed header */
+.page-body { padding-top: 72px; }
+.page-body--hero { padding-top: 0; }

@@ -1,0 +1,124 @@
+/* ============================================================
+   css/components/cards.css
+   Feature cards (homepage three-area grid) and
+   section navigation cards used across the site.
+   ============================================================ */
+
+/* ============================================================
+   PRACTICE CARDS (Home four areas — Therapy, Art, Making, Community)
+   ============================================================ */
+.practice-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+}
+
+.practice-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  padding: clamp(var(--s8), 4vw, var(--s12)) clamp(var(--s6), 3vw, var(--s10));
+  text-decoration: none;
+  color: inherit;
+  border-top: 3px solid transparent;
+  transition:
+    background var(--dur) var(--ease-out),
+    border-top-color var(--dur) var(--ease-out);
+}
+
+.practice-card:hover {
+  background: var(--surface);
+  border-top-color: var(--sand);
+}
+
+.practice-card__num {
+  display: block;
+  font-family: var(--f-body);
+  font-size: .7rem;
+  font-weight: 500;
+  letter-spacing: .12em;
+  color: var(--sand);
+  margin-bottom: var(--s5);
+}
+
+.practice-card h2 {
+  font-size: clamp(1.6rem, 2.8vw, 2.6rem);
+  letter-spacing: -.02em;
+  line-height: 1.05;
+  margin-bottom: var(--s4);
+}
+
+.practice-card p {
+  font-size: .9rem;
+  line-height: 1.72;
+  color: var(--ink-3);
+  flex: 1;
+  margin-bottom: var(--s8);
+}
+
+.practice-card__link {
+  font-family: var(--f-body);
+  font-size: .8rem;
+  font-weight: 500;
+  color: var(--ink-2);
+  transition: color var(--dur) var(--ease-out);
+  margin-top: auto;
+}
+
+.practice-card:hover .practice-card__link { color: var(--sand); }
+
+/* ============================================================
+   FEATURE CARDS (Home three areas)
+   ============================================================ */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+}
+.feature-card {
+  display: block;
+  background: var(--bg);
+  padding: clamp(2rem, 4vw, 3rem) clamp(1.5rem, 3vw, 2.5rem);
+  text-decoration: none;
+  transition: background var(--dur) var(--ease-out);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Sand bar sweeps in from left on hover */
+.feature-card::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--sand);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .45s var(--ease-out);
+}
+.feature-card:hover::before { transform: scaleX(1); }
+.feature-card:hover { background: var(--surface); }
+
+.feature-card h2,
+.feature-card h3 {
+  font-size: clamp(1.25rem, 2vw, 1.65rem);
+  margin-bottom: var(--s4);
+  letter-spacing: -.015em;
+}
+.feature-card p { font-size: .88rem; line-height: 1.7; color: var(--ink-3); }
+
+/* Small warm dot — replaces the editorial numbered labels */
+.feature-card__dot {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--green-pale);
+  margin-bottom: var(--s6);
+  transition: background var(--dur);
+}
+.feature-card:hover .feature-card__dot { background: var(--sand); }

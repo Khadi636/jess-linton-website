@@ -1,0 +1,89 @@
+/* ============================================================
+   css/components/contact.css
+   Contact page layout: 50/50 split with details on the left
+   and an HCPC/DBS registration box on the right.
+   .contact-details — label/value row list
+   .registration-box — professional credentials panel
+   ============================================================ */
+
+/* ============================================================
+   CONTACT
+   ============================================================ */
+.contact-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(var(--s10), 6vw, var(--s28));
+  align-items: start;
+}
+.contact-col h2 {
+  font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+  margin-bottom: var(--s6);
+  margin-top: var(--s4);
+}
+.contact-col p {
+  font-size: .92rem;
+  color: var(--ink-3);
+  line-height: 1.76;
+  margin-bottom: var(--s4);
+}
+.contact-details {
+  list-style: none;
+  margin: var(--s8) 0;
+  border-top: 1px solid var(--border);
+}
+.contact-details li {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: var(--s4);
+  padding: var(--s4) 0;
+  border-bottom: 1px solid var(--border-light);
+  align-items: baseline;
+}
+.contact-details__label {
+  font-size: .67rem;
+  font-weight: 600;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.contact-details__value {
+  font-size: .9rem;
+  color: var(--ink-2);
+  text-decoration: none;
+  transition: color var(--dur);
+}
+a.contact-details__value:hover { color: var(--sand); }
+.contact-social { margin-top: var(--s8); }
+.contact-social .contact-details__label { display: block; margin-bottom: var(--s4); }
+
+.registration-box {
+  margin-top: var(--s12);
+  padding: var(--s10);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-top: 3px solid var(--green);
+}
+.registration-box__label {
+  font-size: .67rem;
+  font-weight: 600;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  display: block;
+  margin-bottom: var(--s4);
+}
+.registration-box p { font-size: .85rem; color: var(--ink-3); line-height: 1.72; margin-bottom: var(--s4); }
+.registration-box__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+}
+.registration-box__list li { font-size: .82rem; color: var(--ink-2); }
+.registration-box__list span {
+  font-family: var(--f-display);
+  font-size: .92rem;
+  font-style: italic;
+  margin-left: var(--s2);
+}
+

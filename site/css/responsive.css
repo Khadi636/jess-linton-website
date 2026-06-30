@@ -1,0 +1,122 @@
+/* ============================================================
+   css/responsive.css
+   All media queries for the site.
+
+   Breakpoints:
+   - ≤ 1024px (tablet)  — grids collapse, gallery drops to 2 cols
+   - ≤ 768px  (mobile)  — hamburger nav, grids stack, compact type
+   ============================================================ */
+
+/* ============================================================
+   RESPONSIVE — tablet (≤ 1024px)
+   ============================================================ */
+@media (max-width: 1024px) {
+  /* Hero: full-bleed, no grid changes needed — only content sizing */
+  .hero__content { max-width: 100%; }
+  .hero__desc { max-width: 56ch; }
+
+  .grid-asym,
+  .grid-asym--rev { grid-template-columns: 1fr; }
+  .grid-asym--rev .media-col,
+  .grid-asym--rev .text-col { order: unset; }
+
+  .media-text,
+  .media-text--rev { grid-template-columns: 1fr; }
+  .media-text--rev .media-col,
+  .media-text--rev .text-col { order: unset; }
+
+  .quote-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: var(--s8); }
+
+  .info-blocks { grid-template-columns: 1fr; }
+  .info-block { border-right: none; border-bottom: 1px solid var(--border); }
+  .info-block:last-child { border-bottom: none; }
+
+  .gallery { columns: 2; }
+  .gallery-preview { columns: 2; }
+  .contact-split { grid-template-columns: 1fr; }
+  .feature-grid { grid-template-columns: 1fr; }
+  .section-cards { grid-template-columns: 1fr; }
+  .section-card { border-right: none; border-bottom: 1px solid var(--border); }
+  .section-card:last-child { border-bottom: none; }
+
+  /* Split hero: stack image above text */
+  .hero--split {
+    grid-template-columns: 1fr;
+    grid-template-rows: 46vh auto;
+    min-height: auto;
+  }
+  .hero-split__image { order: -1; }
+  .hero-split__text {
+    align-items: flex-start;
+    padding: var(--s10) var(--s8) var(--s12);
+  }
+  .hero-split__inner { max-width: 100%; }
+
+  /* Full-bleed hero: shorter on tablet */
+  .hero-home { height: 78vh; }
+  .hero-home__title { max-width: 100%; }
+
+  /* Practice cards: 2×2 on tablet */
+  .practice-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ============================================================
+   RESPONSIVE — mobile (≤ 768px)
+   ============================================================ */
+@media (max-width: 768px) {
+  /* Nav: show hamburger only */
+  .nav-links,
+  .nav-social { display: none; }
+  .nav-toggle { display: flex; }
+
+  /* Hero: full-bleed — ensure content clears the bottom-nav bar */
+  .hero__content {
+    padding: var(--s8) var(--s6) calc(var(--s16) + env(safe-area-inset-bottom, 0px));
+    max-width: 100%;
+  }
+  .hero__title { font-size: clamp(2.4rem, 9vw, 3.6rem); }
+
+  /* Typography scale for mobile */
+  h1 { font-size: clamp(2.8rem, 10vw, 4rem); }
+  h2 { font-size: clamp(1.8rem, 6vw, 2.5rem); }
+
+  /* Grids */
+  .grid-2,
+  .grid-3 { grid-template-columns: 1fr; }
+  .blog-post { grid-template-columns: 1fr; gap: var(--s3); }
+  .article-item { grid-template-columns: 1fr; }
+  .gallery { columns: 1; }
+  .gallery-preview { columns: 1; }
+  .photo-strip { grid-template-columns: 1fr 1fr; }
+  .credentials { flex-direction: column; gap: 1px; }
+  .footer-grid { grid-template-columns: 1fr; }
+
+  /* Section spacing — more compact on small screens */
+  .section--xl { padding-block: clamp(var(--s16), 8vw, var(--s24)); }
+
+  /* Page header */
+  .page-header { padding-top: var(--s16); }
+
+  /* Safe area support for modern phones */
+  .site-footer { padding-bottom: calc(var(--s8) + env(safe-area-inset-bottom, 0px)); }
+
+  /* Split hero mobile */
+  .hero--split { grid-template-rows: 42vh auto; }
+  .hero-split__title { font-size: clamp(2.8rem, 9vw, 3.8rem); }
+  .hero-split__text { padding: var(--s8) var(--s6) calc(var(--s12) + env(safe-area-inset-bottom, 0px)); }
+
+  /* Full-bleed hero mobile */
+  .hero-home {
+    height: 85vh;
+    min-height: 500px;
+    align-items: flex-end;
+  }
+  .hero-home__title { font-size: clamp(2.4rem, 9vw, 3.4rem); }
+  .hero-home__sub { font-size: .92rem; }
+
+  /* Practice cards: single column on mobile */
+  .practice-grid { grid-template-columns: 1fr; }
+  .practice-card { border-top: none; border-bottom: 1px solid var(--border); }
+  .practice-card:last-child { border-bottom: none; }
+}

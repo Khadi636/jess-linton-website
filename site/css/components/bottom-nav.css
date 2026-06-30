@@ -1,0 +1,136 @@
+/* ============================================================
+   css/components/bottom-nav.css
+   Mobile bottom navigation bar (≤ 768px only).
+   Fixed 5-tab bar at the bottom of the screen with:
+   - Icon + label for each tab
+   - Pill highlight behind the active tab
+   - Raised circular button for the centre Artwork tab
+   - iPhone safe-area inset support
+   Active tab class is set by main.js (bottom-nav module).
+   ============================================================ */
+
+/* ============================================================
+   MOBILE BOTTOM NAVIGATION
+   Fixed 5-tab bar, visible only on mobile (≤768px).
+   Active state: pill highlight + green icon.
+   Centre tab: raised circular button (artwork showcase).
+   ============================================================ */
+.bottom-nav { display: none; }
+
+@media (max-width: 768px) {
+
+  .bottom-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    z-index: 180;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    background: var(--white);
+    border-top: 1px solid var(--border-light);
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0 -4px 28px rgba(19,19,16,.07), 0 -1px 0 var(--border-light);
+    align-items: center;
+    justify-content: space-around;
+    overflow: visible;
+  }
+
+  /* Give footer & page body room above the bar */
+  .site-footer {
+    padding-bottom: calc(92px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+  .page-body,
+  .page-body--hero {
+    padding-bottom: 80px;
+  }
+
+  /* ── Each tab item ── */
+  .bottom-nav__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4px;
+    flex: 1;
+    height: 64px;
+    padding-bottom: 10px;
+    color: var(--ink-3);
+    text-decoration: none;
+    position: relative;
+    transition: color var(--dur);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .bottom-nav__item svg {
+    width: 22px; height: 22px;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+    transition: transform var(--dur) var(--ease-out);
+  }
+  .bottom-nav__item:active svg { transform: scale(.88); }
+
+  .bottom-nav__item span {
+    font-size: .58rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    line-height: 1;
+    transition: color var(--dur);
+  }
+
+  /* ── Active: green + pill highlight ── */
+  .bottom-nav__item.active { color: var(--green); }
+
+  .bottom-nav__item.active::before {
+    content: '';
+    position: absolute;
+    top: 8px; left: 50%;
+    transform: translateX(-50%);
+    width: 50px; height: 28px;
+    background: var(--green-pale);
+    border-radius: 100px;
+  }
+
+  /* ── Centre artwork tab: raised circle ── */
+  .bottom-nav__item--center {
+    height: 72px;
+    justify-content: flex-end;
+  }
+
+  .bottom-nav__center-ring {
+    width: 52px; height: 52px;
+    background: var(--green);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -20px;
+    margin-bottom: 3px;
+    box-shadow: 0 4px 18px rgba(44,74,56,.38), 0 0 0 4px var(--white);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 2;
+    transition:
+      background var(--dur) var(--ease-out),
+      transform var(--dur) var(--ease-out),
+      box-shadow var(--dur);
+  }
+
+  .bottom-nav__center-ring svg {
+    stroke: var(--white);
+    width: 20px; height: 20px;
+  }
+
+  .bottom-nav__item--center:active .bottom-nav__center-ring,
+  .bottom-nav__item--center.active .bottom-nav__center-ring {
+    background: var(--green-dark);
+    transform: scale(1.07);
+    box-shadow: 0 6px 22px rgba(44,74,56,.48), 0 0 0 4px var(--white);
+  }
+
+  /* No pill for centre tab */
+  .bottom-nav__item--center.active::before { display: none; }
+
+  .bottom-nav__item--center span { color: var(--ink-3); }
+  .bottom-nav__item--center.active span { color: var(--green); }
+}

@@ -1,0 +1,43 @@
+/* ============================================================
+   css/style.css  —  Import hub
+   Jess Linton website — Design System v3
+   Fonts: Fraunces (display) + Inter (body)
+
+   This file does not contain CSS rules directly.
+   It imports all partial stylesheets in the correct cascade order.
+   To edit styles, find the relevant partial in:
+     css/base/        — tokens, reset, typography, utilities, buttons
+     css/components/  — nav, hero, gallery, blog, contact, etc.
+     css/responsive.css
+   ============================================================ */
+
+/* ── Foundation ─────────────────────────────────────── */
+@import 'base/tokens.css';
+@import 'base/reset.css';
+@import 'base/typography.css';
+@import 'base/utilities.css';
+@import 'base/buttons.css';
+
+/* ── Navigation ─────────────────────────────────────── */
+@import 'components/nav.css?v=2';
+@import 'components/mobile-nav.css';
+
+/* ── Page sections ───────────────────────────────────── */
+@import 'components/hero.css?v=2';
+@import 'components/layout.css';
+@import 'components/cards.css?v=2';
+@import 'components/content.css';
+@import 'components/gallery.css';
+@import 'components/blog.css';
+@import 'components/contact.css';
+@import 'components/slideshow.css';
+@import 'components/footer.css';
+
+/* ── Responsive breakpoints ──────────────────────────── */
+@import 'responsive.css';
+
+/* ── Client preview panel (remove after approval) ────── */
+@import 'components/preview-panel.css';
+
+/* ── Mobile bottom navigation ────────────────────────── */
+@import 'components/bottom-nav.css';

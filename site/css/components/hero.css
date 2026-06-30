@@ -1,0 +1,356 @@
+/* ============================================================
+   css/components/hero.css
+   Homepage hero: full-viewport photo with gradient overlay.
+   Text sits at the bottom left over the photo — warm and personal.
+   Includes the image slideshow and slide-dot controls.
+   ============================================================ */
+
+.hero {
+  position: relative;
+  height: 100svh;
+  min-height: 600px;
+  overflow: hidden;
+}
+
+.hero__media {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* Gradient overlay — strong at bottom for text legibility, fades to transparent at top */
+.hero__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(14, 24, 18, 0.84) 0%,
+    rgba(14, 24, 18, 0.28) 50%,
+    rgba(14, 24, 18, 0.06) 100%
+  );
+  z-index: 1;
+}
+
+/* Ken Burns slow zoom on load */
+.hero__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 9s linear;
+}
+.hero.loaded .hero__media img { transform: scale(1.04); }
+
+/* Text content — anchored to bottom left */
+.hero__content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  padding: clamp(2.5rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem);
+  max-width: 700px;
+}
+
+/* Eyebrow and scroll indicator hidden — not needed in personal design */
+.hero__eyebrow { display: none; }
+.hero__scroll   { display: none; }
+
+.hero__title {
+  font-family: var(--f-display);
+  font-size: clamp(3.2rem, 8vw, 7rem);
+  font-weight: 200;
+  font-style: italic;
+  line-height: 1.02;
+  letter-spacing: -.025em;
+  color: var(--white);
+  margin-bottom: var(--s4);
+}
+
+.hero__desc {
+  font-size: clamp(.95rem, 1.4vw, 1.05rem);
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.72);
+  max-width: 48ch;
+  margin-bottom: var(--s10);
+}
+
+/* ── Slideshow ───────────────────────────────────────────── */
+.hero-slides { position: absolute; inset: 0; }
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.6s ease;
+}
+.hero-slide.active { opacity: 1; }
+.hero-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Slide dots — bottom right, above gradient */
+.hero-dots {
+  position: absolute;
+  bottom: var(--s6);
+  right: var(--s6);
+  display: flex;
+  gap: 0;
+  z-index: 3;
+}
+.hero-dot {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  -webkit-tap-highlight-color: transparent;
+}
+/* Visual dot rendered as pseudo-element — decoupled from the touch-target size */
+.hero-dot::before {
+  content: '';
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  flex-shrink: 0;
+  transition: background var(--dur), transform var(--dur);
+}
+.hero-dot.active::before { background: var(--white); transform: scale(1.4); }
+
+/* ============================================================
+   HOME HERO — full-bleed photographic hero
+   ============================================================ */
+
+.hero-home {
+  position: relative;
+  height: 92vh;
+  min-height: 580px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+}
+
+/* Slides fill the hero; individual images cover with top-biased crop */
+.hero-home .hero-slides {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-home .hero-slide img {
+  object-position: center 28%;
+}
+
+/* ── Per-slide colour grading ─────────────────────────────────
+   Each image analysed and tuned individually to a shared target:
+   warm, atmospheric, mid-dark — as if shot in the same light.
+
+   Slide 1 — Nepal workshop (bright cool interior, white floor blown out):
+     Heavy brightness cut to tame the overexposed tiles.
+     Slight sepia warmth to unify with the other two.
+
+   Slide 2 — Mural/performance (extreme golden cast, over-saturated):
+     Strongest desaturation + brightness cut of the three.
+     No sepia — the image is already too warm.
+
+   Slide 3 — Outdoor community (natural light, well-exposed):
+     Light-touch adjustment; small sepia ties it to the set.
+   ─────────────────────────────────────────────────────────── */
+.hero-home .hero-slide:nth-child(1) img {
+  filter: brightness(0.62) contrast(1.14) saturate(0.80) sepia(0.14);
+}
+.hero-home .hero-slide:nth-child(2) img {
+  filter: brightness(0.64) contrast(1.18) saturate(0.48) sepia(0.02);
+}
+.hero-home .hero-slide:nth-child(3) img {
+  filter: brightness(0.78) contrast(1.08) saturate(0.82) sepia(0.12);
+}
+
+/* ── Directional text scrim ───────────────────────────────────
+   Left-to-right gradient covers only the text zone (left ~65%).
+   Vertical gradient adds base depth — lighter than before so
+   the right-hand image stays open and photographic.
+   Combined effect: bottom-left corner is darkest (text lives
+   there), top-right is nearly untouched image.
+   ─────────────────────────────────────────────────────────── */
+.hero-home::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to right,
+      rgba(14, 24, 18, 0.70) 0%,
+      rgba(14, 24, 18, 0.32) 45%,
+      rgba(14, 24, 18, 0.06) 68%,
+      rgba(14, 24, 18, 0)    85%
+    ),
+    linear-gradient(
+      to top,
+      rgba(14, 24, 18, 0.72) 0%,
+      rgba(14, 24, 18, 0.22) 42%,
+      rgba(14, 24, 18, 0.04) 72%,
+      rgba(14, 24, 18, 0)    100%
+    );
+  z-index: 1;
+}
+
+.hero-home__body {
+  position: relative;
+  z-index: 2;
+  padding-bottom: clamp(var(--s16), 7vw, var(--s28));
+  padding-top: var(--s12);
+}
+
+.hero-home__line {
+  display: block;
+  width: 36px;
+  height: 1.5px;
+  background: var(--sand);
+  margin-bottom: clamp(var(--s6), 2vw, var(--s10));
+  transform-origin: left center;
+  opacity: 0;
+  animation: heroLineIn 0.7s ease forwards 0.15s;
+}
+
+.hero-home__title {
+  font-family: var(--f-display);
+  font-size: clamp(2.8rem, 6vw, 6.4rem);
+  font-weight: 200;
+  font-style: italic;
+  line-height: 1.1;
+  letter-spacing: -.028em;
+  color: var(--white);
+  margin-bottom: clamp(var(--s5), 2vw, var(--s8));
+  max-width: 16ch;
+}
+
+.hero-home__sub {
+  font-size: clamp(.95rem, 1.2vw, 1.05rem);
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.88);
+  max-width: 52ch;
+  margin-bottom: var(--s10);
+}
+
+/* ============================================================
+   SPLIT HERO — index.html premium redesign
+   Asymmetric 55/45 grid: text left (cream) · image right
+   ============================================================ */
+
+.hero--split {
+  display: grid;
+  grid-template-columns: 55fr 45fr;
+  min-height: calc(100svh - 4.5rem); /* subtract approx nav height */
+  overflow: hidden;
+}
+
+/* ── Text panel ──────────────────────────────────────────── */
+.hero-split__text {
+  display: flex;
+  align-items: center;
+  padding: clamp(var(--s16), 7vw, var(--s32))
+           clamp(var(--s10), 5vw, var(--s20))
+           clamp(var(--s16), 7vw, var(--s32))
+           clamp(var(--s16), 9vw, var(--s32));
+  background: var(--bg);
+}
+
+.hero-split__inner { max-width: 520px; }
+
+/* Decorative sand line — animates left-to-right on load */
+.hero-split__line {
+  display: block;
+  width: 36px;
+  height: 1.5px;
+  background: var(--sand);
+  margin-bottom: clamp(var(--s8), 3vw, var(--s12));
+  transform-origin: left center;
+  opacity: 0;
+  animation: heroLineIn 0.7s ease forwards 0.15s;
+}
+
+.hero-split__title {
+  font-family: var(--f-display);
+  font-size: clamp(3.4rem, 6.5vw, 6rem);
+  font-weight: 200;
+  font-style: italic;
+  line-height: 1.0;
+  letter-spacing: -.028em;
+  color: var(--ink);
+  margin: 0 0 clamp(var(--s4), 1.5vw, var(--s6));
+  opacity: 0;
+  animation: heroTitleIn 1s cubic-bezier(.16, 1, .3, 1) forwards 0.3s;
+}
+
+/* Italic sand role descriptor — warm, personal, not uppercase */
+.hero-split__role {
+  font-size: clamp(.78rem, .9vw, .92rem);
+  font-style: italic;
+  color: var(--sand);
+  letter-spacing: .01em;
+  line-height: 1.5;
+  margin-bottom: clamp(var(--s6), 2vw, var(--s10));
+  opacity: 0;
+  animation: heroFadeUp 0.7s ease forwards 0.55s;
+}
+
+.hero-split__desc {
+  font-size: clamp(.88rem, .95vw, .98rem);
+  line-height: 1.7;
+  color: var(--ink-2);
+  max-width: 42ch;
+  margin-bottom: clamp(var(--s8), 3vw, var(--s12));
+  opacity: 0;
+  animation: heroFadeUp 0.7s ease forwards 0.72s;
+}
+
+.hero-split__inner .btn-row {
+  opacity: 0;
+  animation: heroFadeUp 0.7s ease forwards 0.88s;
+}
+
+/* ── Image panel ─────────────────────────────────────────── */
+.hero-split__image {
+  overflow: hidden;
+  position: relative;
+}
+
+.hero-split__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 55% 18%;
+  display: block;
+  transform: scale(1.06);
+  animation: heroImageReveal 2s cubic-bezier(.16, 1, .3, 1) forwards 0.05s;
+}
+
+/* ── Entrance animations ─────────────────────────────────── */
+@keyframes heroLineIn {
+  from { opacity: 0; transform: scaleX(0); }
+  to   { opacity: 1; transform: scaleX(1); }
+}
+
+@keyframes heroTitleIn {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes heroImageReveal {
+  from { transform: scale(1.06); }
+  to   { transform: scale(1); }
+}

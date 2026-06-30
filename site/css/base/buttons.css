@@ -1,0 +1,69 @@
+/* ============================================================
+   css/base/buttons.css
+   Button component and all modifier classes:
+   .btn            — base: outline, ink border
+   .btn--fill      — solid ink fill
+   .btn--green     — green outline/fill
+   .btn--ghost     — white outline, for use on dark bg
+   .btn--sm        — smaller padding variant
+   .btn-row        — flex row of buttons
+   .callout        — aside/note block with sand left border
+   .section--gallery — section bottom spacing for gallery pages
+   ============================================================ */
+
+/* ── Buttons ─────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  font-family: var(--f-body);
+  font-size: .76rem;
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  padding: .9rem 2.1rem;
+  border: 1.5px solid var(--ink);
+  color: var(--ink);
+  background: transparent;
+  transition:
+    background var(--dur) var(--ease-out),
+    color var(--dur) var(--ease-out),
+    border-color var(--dur),
+    transform var(--dur) var(--ease-out);
+  white-space: nowrap;
+}
+.btn:hover {
+  background: var(--ink);
+  color: var(--bg);
+  transform: translateY(-1px);
+}
+.btn--fill { background: var(--ink); color: var(--white); }
+.btn--fill:hover { background: var(--ink-2); transform: translateY(-1px); }
+.btn--green { border-color: var(--green); color: var(--green); }
+.btn--green:hover { background: var(--green); color: var(--white); transform: translateY(-1px); }
+.btn--ghost { border-color: rgba(255,255,255,.45); color: var(--white); }
+.btn--ghost:hover {
+  background: rgba(255,255,255,.12);
+  border-color: var(--white);
+  transform: translateY(-1px);
+}
+.btn--sm { padding: .65rem 1.4rem; font-size: .7rem; }
+
+.btn-row { display: flex; flex-wrap: wrap; gap: var(--s4); }
+.btn-row--center { justify-content: center; }
+
+/* Arrow micro-animation */
+.btn .arrow { transition: transform var(--dur) var(--ease-out); }
+.btn:hover .arrow { transform: translateX(5px); }
+
+/* ── Callout block ───────────────────────────────────────── */
+.callout {
+  padding: var(--s8) var(--s10);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-left: 3px solid var(--sand);
+}
+
+/* ── Section–gallery ─────────────────────────────────────── */
+.section--gallery { padding-bottom: var(--s16); }
+

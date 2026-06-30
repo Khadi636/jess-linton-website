@@ -1,0 +1,298 @@
+/* ============================================================
+   css/components/preview-panel.css
+   Client design preview panel — injected via JS on all pages.
+   Fixed right-side drawer on desktop; bottom drawer on mobile.
+   All choices are applied via CSS custom property overrides
+   on :root and persist across page navigation via sessionStorage.
+   ============================================================ */
+
+/* ── Wrapper ─────────────────────────────────────────────── */
+.cp {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  z-index: 9990;
+  display: flex;
+  align-items: flex-start;
+  font-family: var(--f-body);
+}
+
+/* ── Vertical toggle tab ──────────────────────────────────── */
+.cp__tab {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  background: var(--green);
+  color: var(--white);
+  border: none;
+  cursor: pointer;
+  font-family: var(--f-body);
+  font-size: .6rem;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  padding: var(--s8) var(--s3);
+  border-radius: 8px 0 0 8px;
+  transition: background var(--dur), transform var(--dur);
+  flex-shrink: 0;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.cp__tab:hover { background: var(--green-dark); }
+.cp.collapsed .cp__tab { transform: none; }
+
+/* ── Panel body ───────────────────────────────────────────── */
+.cp__body {
+  background: #fff;
+  background: var(--white, #FDFCF9);
+  border: 1px solid var(--border);
+  border-right: none;
+  width: 272px;
+  max-height: 88vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-shadow: -6px 0 32px rgba(19,19,16,.13);
+  border-radius: 10px 0 0 10px;
+  padding: var(--s8);
+  transition:
+    width .35s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity .25s,
+    padding .35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.cp.collapsed .cp__body {
+  width: 0;
+  padding-left: 0;
+  padding-right: 0;
+  opacity: 0;
+  pointer-events: none;
+  overflow: hidden;
+  border-left-width: 0;
+}
+
+/* ── Panel heading ────────────────────────────────────────── */
+.cp__heading {
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-bottom: var(--s6);
+  padding-bottom: var(--s4);
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+/* ── Section label ────────────────────────────────────────── */
+.cp__label {
+  display: block;
+  font-size: .58rem;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: var(--s3);
+  white-space: nowrap;
+}
+
+/* ── Section block ────────────────────────────────────────── */
+.cp__section { margin-bottom: var(--s6); }
+.cp__section:last-of-type { margin-bottom: 0; }
+
+.cp__divider {
+  height: 1px;
+  background: var(--border);
+  margin: var(--s6) 0;
+}
+
+/* ── Palette options ──────────────────────────────────────── */
+.cp__palettes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+}
+
+.cp__palette {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  background: none;
+  border: 1.5px solid var(--border);
+  border-radius: 5px;
+  padding: var(--s2) var(--s3);
+  cursor: pointer;
+  transition: border-color var(--dur), background var(--dur);
+  font-family: var(--f-body);
+  font-size: .7rem;
+  font-weight: 500;
+  color: var(--ink-2);
+  text-align: left;
+  white-space: nowrap;
+  width: 100%;
+}
+.cp__palette:hover { border-color: var(--ink-3); background: var(--surface); }
+.cp__palette.active {
+  border-color: var(--green);
+  background: var(--surface);
+}
+
+.cp__swatches {
+  display: flex;
+  border-radius: 3px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.cp__swatch {
+  width: 12px;
+  height: 28px;
+  display: block;
+}
+
+/* ── Font options ─────────────────────────────────────────── */
+.cp__fonts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+}
+
+.cp__font {
+  background: none;
+  border: 1.5px solid var(--border);
+  border-radius: 5px;
+  padding: var(--s2) var(--s3);
+  cursor: pointer;
+  transition: border-color var(--dur), background var(--dur);
+  text-align: left;
+  width: 100%;
+}
+.cp__font:hover { border-color: var(--ink-3); background: var(--surface); }
+.cp__font.active { border-color: var(--green); background: var(--surface); }
+
+.cp__font-name {
+  display: block;
+  font-size: .6rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: 2px;
+}
+.cp__font-sample {
+  display: block;
+  font-size: 1.05rem;
+  color: var(--ink);
+  line-height: 1.3;
+}
+
+/* ── Button style options ────────────────────────────────── */
+.cp__btn-opts {
+  display: flex;
+  gap: var(--s2);
+}
+
+.cp__btn-opt {
+  flex: 1;
+  background: var(--green);
+  color: var(--white);
+  border: 2px solid transparent;
+  padding: var(--s2) var(--s3);
+  cursor: pointer;
+  font-family: var(--f-body);
+  font-size: .6rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  transition: opacity var(--dur), border-color var(--dur), transform var(--dur);
+  white-space: nowrap;
+}
+.cp__btn-opt:hover { opacity: .82; }
+.cp__btn-opt.active {
+  border-color: var(--sand);
+  transform: scale(1.04);
+}
+
+/* ── Reset link ───────────────────────────────────────────── */
+.cp__reset {
+  display: block;
+  width: 100%;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: var(--s2) var(--s3);
+  font-family: var(--f-body);
+  font-size: .62rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  cursor: pointer;
+  margin-top: var(--s5);
+  transition: border-color var(--dur), color var(--dur);
+  text-align: center;
+}
+.cp__reset:hover { border-color: var(--ink-3); color: var(--ink); }
+
+/* ── Disclaimer note ──────────────────────────────────────── */
+.cp__note {
+  font-size: .62rem;
+  line-height: 1.6;
+  color: var(--ink-3);
+  font-style: italic;
+  margin-top: var(--s4);
+  padding-top: var(--s4);
+  border-top: 1px solid var(--border);
+  white-space: normal;
+}
+
+/* ─────────────────────────────────────────────────────────── */
+/*  MOBILE: bottom drawer                                      */
+/* ─────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .cp {
+    top: auto;
+    bottom: 64px;   /* sit above mobile bottom nav */
+    right: 0;
+    left: 0;
+    transform: none;
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .cp__tab {
+    writing-mode: horizontal-tb;
+    text-orientation: initial;
+    border-radius: 8px 8px 0 0;
+    padding: var(--s3) var(--s5);
+    text-align: center;
+    letter-spacing: .15em;
+    font-size: .62rem;
+  }
+
+  .cp__body {
+    width: 100%;
+    max-height: 55vh;
+    border-radius: 10px 10px 0 0;
+    border-right: 1px solid var(--border);
+    border-bottom: none;
+    box-shadow: 0 -6px 32px rgba(19,19,16,.13);
+    transition:
+      max-height .35s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity .25s,
+      padding .35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .cp.collapsed .cp__body {
+    width: 100%;
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-left-width: 1px;
+  }
+
+  /* Stack palette swatches tighter on small screens */
+  .cp__palette { font-size: .68rem; }
+  .cp__swatch { width: 10px; height: 24px; }
+
+  /* Palettes as a 2×2 grid on mobile */
+  .cp__palettes { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s2); }
+  .cp__fonts    { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s2); }
+}

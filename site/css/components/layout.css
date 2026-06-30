@@ -1,0 +1,71 @@
+/* ============================================================
+   css/components/layout.css
+   Page-level structural components:
+   - .page-header     — interior page title section
+   - .section / .section--* — block vertical spacing
+   - .band-dark / .band-green — full-width coloured bands
+   - .grid-2 / .grid-3 / .grid-auto / .grid-asym — grid systems
+   - .section-head    — section title + "view all" row
+   ============================================================ */
+
+/* ============================================================
+   PAGE HEADER (interior pages)
+   ============================================================ */
+.page-header {
+  padding-top: clamp(var(--s16), 10vw, var(--s40));
+  padding-bottom: clamp(var(--s8), 4vw, var(--s16));
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+}
+.page-header .eyebrow { margin-bottom: var(--s5); }
+.page-header h1 {
+  margin-top: var(--s3);
+  max-width: 20ch;
+  line-height: 1.04;
+  animation: pageHeaderIn 0.75s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes pageHeaderIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ============================================================
+   SECTION SPACING — generous, editorial
+   ============================================================ */
+.section        { padding-block: clamp(var(--s12), 6vw, var(--s24)); }
+.section--sm    { padding-block: clamp(var(--s8), 4vw, var(--s12)); }
+.section--lg    { padding-block: clamp(var(--s20), 8vw, var(--s32)); }
+.section--xl    { padding-block: clamp(var(--s24), 10vw, var(--s48)); }
+.section--surface { background: var(--surface); }
+.section--dark  { background: var(--ink); color: var(--white); }
+.section--dark .eyebrow { color: rgba(255,255,255,.58); }
+.section--dark p { color: rgba(255,255,255,.62); }
+.section--dark blockquote { color: var(--white); }
+.section--green { background: var(--green); color: var(--white); }
+.section--green .eyebrow { color: rgba(255,255,255,.72); }
+.section--green blockquote { color: var(--white); }
+.section--sand  { background: var(--sand-lt); }
+
+/* ============================================================
+   GRID LAYOUTS
+   ============================================================ */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s12); align-items: start; }
+.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: var(--s8); }
+.grid-auto { display: grid; grid-template-columns: repeat(auto-fill,minmax(280px,1fr)); gap: var(--s8); }
+
+/* Asymmetric 58/42 — image-forward */
+.grid-asym     { display: grid; grid-template-columns: 7fr 5fr; gap: clamp(var(--s10),6vw,var(--s24)); align-items: start; }
+.grid-asym--rev { grid-template-columns: 5fr 7fr; }
+
+/* Section header row */
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s8);
+  margin-bottom: var(--s12);
+  padding-bottom: var(--s6);
+  border-bottom: 1px solid var(--border);
+}
+.section-head .eyebrow { white-space: nowrap; }
+

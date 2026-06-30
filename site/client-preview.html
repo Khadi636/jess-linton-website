@@ -1,0 +1,1536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design Preview — Jess Linton</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Current fonts + Playfair Display for Option B typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,400;0,9..144,600;1,9..144,200;1,9..144,400&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================================
+       CLIENT PREVIEW — Jess Linton
+       Self-contained. Does not affect the live website.
+       ============================================================ */
+
+    /* ── Token defaults (Palette A — Warm Editorial / current) ── */
+    :root {
+      /* Palette */
+      --bg:           #F8F5F0;
+      --surface:      #F0EDE6;
+      --surface-2:    #E8E4DC;
+      --border:       #E2DFDA;
+      --border-light: #EDEBE5;
+      --ink:          #131310;
+      --ink-2:        #3A3A35;
+      --ink-3:        #787870;
+      --ink-4:        #BEBDB5;
+      --white:        #FDFCF9;
+      --accent:       #C4915A;
+      --accent-light: #F5EBE0;
+      --brand:        #2C4A38;
+      --brand-mid:    #3D6350;
+      --brand-dark:   #1E3327;
+      --brand-pale:   #D4E4DB;
+
+      /* Typography */
+      --f-display:    'Fraunces', Georgia, serif;
+      --f-body:       'Inter', system-ui, sans-serif;
+      --f-display-style: italic;
+
+      /* Buttons */
+      --btn-radius:       0px;
+      --btn-border-width: 1.5px;
+      --btn-font-size:    .76rem;
+      --btn-padding:      .9rem 2.1rem;
+      --btn-letter-spacing: .12em;
+      --btn-transform:    uppercase;
+      --btn-shadow:       none;
+
+      /* Motion */
+      --ease-out:   cubic-bezier(0.22, 1, 0.36, 1);
+      --dur:        260ms;
+    }
+
+    /* ── Reset ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      font-family: var(--f-body);
+      font-size: 1rem;
+      line-height: 1.78;
+      background: #1a1a18;
+      color: #f0ede6;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; height: auto; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+    button { font: inherit; cursor: pointer; }
+
+    /* ============================================================
+       CONTROL PANEL (sticky sidebar)
+       ============================================================ */
+    .cp {
+      position: fixed;
+      top: 0; left: 0;
+      width: 290px;
+      height: 100vh;
+      background: #111110;
+      border-right: 1px solid #2a2a27;
+      overflow-y: auto;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      scrollbar-width: thin;
+      scrollbar-color: #333 transparent;
+    }
+
+    .cp-header {
+      padding: 24px 20px 16px;
+      border-bottom: 1px solid #2a2a27;
+      flex-shrink: 0;
+    }
+    .cp-header h1 {
+      font-family: var(--f-display);
+      font-size: 1.1rem;
+      font-weight: 400;
+      font-style: italic;
+      color: #f0ede6;
+      letter-spacing: -.01em;
+      margin-bottom: 4px;
+    }
+    .cp-header p {
+      font-size: .7rem;
+      color: #787870;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      line-height: 1.5;
+    }
+
+    .cp-section {
+      padding: 18px 20px;
+      border-bottom: 1px solid #2a2a27;
+    }
+    .cp-section:last-child { border-bottom: none; }
+
+    .cp-label {
+      font-size: .65rem;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: #c4915a;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    /* Option buttons */
+    .opt-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .opt-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      background: #1e1e1c;
+      border: 1.5px solid #2a2a27;
+      border-radius: 6px;
+      color: #c8c5be;
+      font-size: .74rem;
+      text-align: left;
+      transition: all .18s ease;
+      cursor: pointer;
+    }
+    .opt-btn:hover { background: #252523; border-color: #444; color: #f0ede6; }
+    .opt-btn.active {
+      background: #1e3327;
+      border-color: #2c4a38;
+      color: #d4e4db;
+    }
+    .opt-btn .swatch {
+      width: 28px; height: 20px;
+      border-radius: 3px;
+      flex-shrink: 0;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .opt-btn .opt-name { font-weight: 500; flex: 1; }
+    .opt-btn .opt-tag {
+      font-size: .62rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #555;
+      transition: color .18s;
+    }
+    .opt-btn.active .opt-tag { color: #3d6350; }
+
+    /* 2-column swatches for palette */
+    .opt-grid--palette {
+      flex-direction: column;
+    }
+    .palette-swatch {
+      display: flex;
+      gap: 3px;
+      border-radius: 3px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .palette-swatch span {
+      display: block;
+      width: 14px; height: 20px;
+    }
+
+    /* Send choices button */
+    .cp-send {
+      padding: 20px;
+      border-top: 1px solid #2a2a27;
+      margin-top: auto;
+    }
+    .send-btn {
+      width: 100%;
+      padding: 12px 20px;
+      background: #2c4a38;
+      border: none;
+      border-radius: 6px;
+      color: #d4e4db;
+      font-size: .76rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .send-btn:hover { background: #3d6350; }
+    .send-note {
+      font-size: .65rem;
+      color: #555;
+      text-align: center;
+      margin-top: 8px;
+      line-height: 1.5;
+    }
+
+    /* ============================================================
+       PREVIEW AREA
+       ============================================================ */
+    .preview-wrap {
+      margin-left: 290px;
+      min-height: 100vh;
+    }
+
+    /* Preview frame that takes site tokens */
+    .preview-frame {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--f-body);
+    }
+
+    /* ── Preview nav ────────────────────────────────────────── */
+    .pv-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(24px, 5vw, 72px);
+      background: rgba(248,245,240,.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .pv-nav-logo {
+      font-family: var(--f-display);
+      font-size: 1.15rem;
+      font-weight: 400;
+      font-style: var(--f-display-style);
+      color: var(--ink);
+      letter-spacing: -.01em;
+    }
+    .pv-nav-links {
+      display: flex;
+      gap: 2px;
+    }
+    .pv-nav-link {
+      font-size: .72rem;
+      font-weight: 500;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--ink-2);
+      padding: 8px 14px;
+    }
+
+    /* ── Preview sections ───────────────────────────────────── */
+
+    /* Hero container — switches layout via data-hero attr */
+    .pv-hero-wrap { position: relative; }
+
+    /* HERO A: Split screen */
+    .hero-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 88vh;
+    }
+    .hero-split__img {
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-split__img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .hero-split__content {
+      background: var(--brand-dark);
+      color: var(--white);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: clamp(40px, 6vw, 80px);
+    }
+    .hero-split__eyebrow {
+      font-size: .7rem;
+      font-weight: 500;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+    .hero-split__title {
+      font-family: var(--f-display);
+      font-size: clamp(2.4rem, 4.5vw, 5rem);
+      font-weight: 400;
+      font-style: var(--f-display-style);
+      line-height: 1.06;
+      letter-spacing: -.025em;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+    .hero-split__title strong { font-style: normal; font-weight: 400; }
+    .hero-split__desc {
+      font-size: .92rem;
+      line-height: 1.7;
+      color: rgba(253,252,249,.72);
+      max-width: 40ch;
+      margin-bottom: 32px;
+    }
+
+    /* HERO B: Centered minimal */
+    .hero-centered {
+      position: relative;
+      min-height: 88vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero-centered__bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .hero-centered__bg img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .hero-centered__bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom,
+        rgba(19,19,16,.52) 0%,
+        rgba(19,19,16,.65) 100%);
+    }
+    .hero-centered__content {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      padding: 80px 40px;
+    }
+    .hero-centered__eyebrow {
+      font-size: .7rem;
+      font-weight: 500;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 24px;
+      display: block;
+    }
+    .hero-centered__title {
+      font-family: var(--f-display);
+      font-size: clamp(3rem, 7vw, 7rem);
+      font-weight: 400;
+      font-style: var(--f-display-style);
+      line-height: .98;
+      letter-spacing: -.03em;
+      color: #fff;
+      margin-bottom: 24px;
+    }
+    .hero-centered__desc {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,.78);
+      max-width: 52ch;
+      margin: 0 auto 36px;
+    }
+
+    /* HERO C: Typographic — no image */
+    .hero-typo {
+      background: var(--bg);
+      min-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(60px, 8vw, 120px) clamp(24px, 6vw, 80px);
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-typo__kicker {
+      font-size: .7rem;
+      font-weight: 500;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .hero-typo__kicker::before {
+      content: '';
+      display: block;
+      width: 40px; height: 1.5px;
+      background: var(--accent);
+    }
+    .hero-typo__title {
+      font-family: var(--f-display);
+      font-size: clamp(3.5rem, 8.5vw, 9rem);
+      font-weight: 200;
+      font-style: var(--f-display-style);
+      line-height: .93;
+      letter-spacing: -.03em;
+      color: var(--ink);
+      max-width: 14ch;
+      margin-bottom: 40px;
+    }
+    .hero-typo__rule {
+      width: 64px; height: 1.5px;
+      background: var(--accent);
+      margin-bottom: 28px;
+    }
+    .hero-typo__desc {
+      font-size: 1.05rem;
+      line-height: 1.72;
+      color: var(--ink-2);
+      max-width: 48ch;
+      margin-bottom: 40px;
+    }
+
+    /* Shared hero button row */
+    .hero-btns { display: flex; flex-wrap: wrap; gap: 12px; }
+
+    /* ── Marquee ────────────────────────────────────────────── */
+    .pv-marquee {
+      background: var(--accent);
+      overflow: hidden;
+      height: 44px;
+      display: flex;
+      align-items: center;
+    }
+    .pv-marquee-inner {
+      display: flex;
+      gap: 0;
+      animation: marquee 22s linear infinite;
+      white-space: nowrap;
+    }
+    .pv-marquee-inner span {
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: #fff;
+      padding: 0 24px;
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ── Feature cards ──────────────────────────────────────── */
+    .pv-features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .pv-card {
+      padding: clamp(32px, 4vw, 56px) clamp(24px, 3.5vw, 48px);
+      border-right: 1px solid var(--border);
+      background: var(--bg);
+      transition: background .25s;
+    }
+    .pv-card:last-child { border-right: none; }
+    .pv-card:hover { background: var(--surface); }
+    .pv-card__num {
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .14em;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 20px;
+    }
+    .pv-card__title {
+      font-family: var(--f-display);
+      font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+      font-weight: 400;
+      line-height: 1.06;
+      letter-spacing: -.02em;
+      color: var(--ink);
+      margin-bottom: 16px;
+    }
+    .pv-card p {
+      font-size: .88rem;
+      line-height: 1.72;
+      color: var(--ink-3);
+    }
+
+    /* ── About strip ────────────────────────────────────────── */
+    .pv-about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      padding: clamp(48px, 7vw, 96px) clamp(24px, 5vw, 72px);
+      gap: clamp(32px, 5vw, 72px);
+      align-items: center;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+    }
+    .pv-about__img img {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+    }
+    .pv-about__eyebrow {
+      font-size: .68rem;
+      font-weight: 500;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 14px;
+    }
+    .pv-about__title {
+      font-family: var(--f-display);
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -.02em;
+      color: var(--ink);
+      margin-bottom: 20px;
+    }
+    .pv-about p {
+      font-size: .94rem;
+      line-height: 1.78;
+      color: var(--ink-2);
+      margin-bottom: 28px;
+    }
+
+    /* ── Gallery section ────────────────────────────────────── */
+    .pv-gallery-section {
+      padding: clamp(48px, 7vw, 96px) clamp(24px, 5vw, 72px);
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+    }
+    .pv-gallery-heading {
+      font-family: var(--f-display);
+      font-size: clamp(1.6rem, 3vw, 2.8rem);
+      font-weight: 400;
+      letter-spacing: -.02em;
+      color: var(--ink);
+      margin-bottom: 36px;
+    }
+
+    /* Gallery A: Masonry */
+    .gallery-masonry {
+      columns: 3;
+      column-gap: 12px;
+    }
+    .gallery-masonry .gitem {
+      break-inside: avoid;
+      margin-bottom: 12px;
+      overflow: hidden;
+      position: relative;
+    }
+    .gallery-masonry .gitem img {
+      width: 100%;
+      display: block;
+      transition: transform .5s var(--ease-out);
+    }
+    .gallery-masonry .gitem:hover img { transform: scale(1.04); }
+
+    /* Gallery B: Uniform grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+    .gallery-grid .gitem {
+      overflow: hidden;
+      position: relative;
+    }
+    .gallery-grid .gitem img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      display: block;
+      transition: transform .5s var(--ease-out);
+    }
+    .gallery-grid .gitem:hover img { transform: scale(1.05); }
+
+    /* Gallery C: Film strip */
+    .gallery-strip {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 16px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
+    }
+    .gallery-strip .gitem {
+      flex-shrink: 0;
+      width: 280px;
+      overflow: hidden;
+    }
+    .gallery-strip .gitem img {
+      width: 280px;
+      height: 360px;
+      object-fit: cover;
+      display: block;
+      transition: transform .5s var(--ease-out);
+    }
+    .gallery-strip .gitem:hover img { transform: scale(1.04); }
+
+    /* Overlay label on gallery items */
+    .gitem__label {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(19,19,16,.72) 0%, transparent 55%);
+      opacity: 0;
+      transition: opacity .3s;
+      display: flex;
+      align-items: flex-end;
+      padding: 16px;
+    }
+    .gitem__label span {
+      font-size: .72rem;
+      font-weight: 500;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: rgba(253,252,249,.85);
+    }
+    .gitem:hover .gitem__label { opacity: 1; }
+
+    /* ── Quote band ─────────────────────────────────────────── */
+    .pv-quote {
+      background: var(--brand-dark);
+      color: var(--white);
+      padding: clamp(48px, 7vw, 96px) clamp(24px, 5vw, 72px);
+      text-align: center;
+    }
+    .pv-quote blockquote {
+      font-family: var(--f-display);
+      font-size: clamp(1.4rem, 2.8vw, 2.4rem);
+      font-weight: 400;
+      font-style: var(--f-display-style);
+      line-height: 1.3;
+      letter-spacing: -.02em;
+      color: var(--white);
+      max-width: 700px;
+      margin: 0 auto 20px;
+    }
+    .pv-quote cite {
+      font-size: .78rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(253,252,249,.5);
+      font-style: normal;
+    }
+
+    /* ── Button showcase ────────────────────────────────────── */
+    .pv-buttons-section {
+      padding: clamp(48px, 7vw, 96px) clamp(24px, 5vw, 72px);
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+    }
+    .pv-buttons-section h2 {
+      font-family: var(--f-display);
+      font-size: clamp(1.4rem, 2.5vw, 2rem);
+      font-weight: 400;
+      letter-spacing: -.02em;
+      color: var(--ink);
+      margin-bottom: 12px;
+    }
+    .pv-buttons-section p {
+      font-size: .88rem;
+      color: var(--ink-3);
+      margin-bottom: 32px;
+    }
+    .btn-showcase {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+    }
+    .btn-showcase-dark {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      background: var(--brand-dark);
+      padding: 24px 28px;
+      margin-top: 16px;
+    }
+
+    /* ── Shared button styles (driven by CSS vars) ─────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--f-body);
+      font-size: var(--btn-font-size);
+      font-weight: 500;
+      letter-spacing: var(--btn-letter-spacing);
+      text-transform: var(--btn-transform);
+      padding: var(--btn-padding);
+      border-radius: var(--btn-radius);
+      border: var(--btn-border-width) solid var(--ink);
+      color: var(--ink);
+      background: transparent;
+      box-shadow: var(--btn-shadow);
+      transition: background .22s, color .22s, transform .22s, box-shadow .22s;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background: var(--ink);
+      color: var(--bg);
+      transform: translateY(-1px);
+    }
+    .btn--accent {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .btn--accent:hover {
+      background: var(--accent);
+      color: var(--white);
+    }
+    .btn--fill {
+      background: var(--ink);
+      color: var(--white);
+      border-color: var(--ink);
+    }
+    .btn--fill:hover { background: var(--ink-2); }
+    .btn--ghost {
+      border-color: rgba(255,255,255,.45);
+      color: var(--white);
+    }
+    .btn--ghost:hover {
+      background: rgba(255,255,255,.14);
+      border-color: var(--white);
+    }
+    .btn--green {
+      border-color: var(--brand);
+      color: var(--brand);
+    }
+    .btn--green:hover {
+      background: var(--brand);
+      color: var(--white);
+    }
+
+    /* ── Footer ─────────────────────────────────────────────── */
+    .pv-footer {
+      background: var(--ink);
+      color: var(--white);
+      padding: clamp(48px, 6vw, 80px) clamp(24px, 5vw, 72px) 32px;
+    }
+    .pv-footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+    .pv-footer-logo {
+      font-family: var(--f-display);
+      font-size: 1.6rem;
+      font-weight: 400;
+      font-style: var(--f-display-style);
+      letter-spacing: -.015em;
+      color: var(--white);
+      display: block;
+      margin-bottom: 14px;
+    }
+    .pv-footer-tagline {
+      font-size: .82rem;
+      line-height: 1.68;
+      color: rgba(253,252,249,.45);
+    }
+    .pv-footer-col-label {
+      font-size: .65rem;
+      font-weight: 600;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 16px;
+    }
+    .pv-footer-links { display: flex; flex-direction: column; gap: 8px; }
+    .pv-footer-links a {
+      font-size: .8rem;
+      color: rgba(253,252,249,.55);
+      transition: color .2s;
+    }
+    .pv-footer-links a:hover { color: var(--white); }
+    .pv-footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding-top: 24px;
+      font-size: .72rem;
+      color: rgba(253,252,249,.28);
+    }
+
+    /* ============================================================
+       PALETTE THEMES — applied to preview-frame via data-palette
+       ============================================================ */
+
+    /* Palette A: Warm Editorial (current — default set in :root) */
+
+    /* Palette B: Cool Slate */
+    [data-palette="b"] {
+      --bg:           #F2F3F5;
+      --surface:      #E8EAEE;
+      --surface-2:    #DDE0E6;
+      --border:       #D5D8DE;
+      --border-light: #E4E7EC;
+      --ink:          #14161A;
+      --ink-2:        #363B44;
+      --ink-3:        #6B7180;
+      --ink-4:        #B2B8C4;
+      --white:        #FAFBFD;
+      --accent:       #9B7FA8;
+      --accent-light: #EDE8F2;
+      --brand:        #1D3A5C;
+      --brand-mid:    #2E5480;
+      --brand-dark:   #122440;
+      --brand-pale:   #D0DFF0;
+    }
+
+    /* Palette C: Botanical Dark */
+    [data-palette="c"] {
+      --bg:           #111610;
+      --surface:      #1A2118;
+      --surface-2:    #222C20;
+      --border:       #2E3D2A;
+      --border-light: #374834;
+      --ink:          #E8EDE4;
+      --ink-2:        #BACAB4;
+      --ink-3:        #7D9077;
+      --ink-4:        #4A5E46;
+      --white:        #F0F5ED;
+      --accent:       #A8C840;
+      --accent-light: #2A3318;
+      --brand:        #5C9950;
+      --brand-mid:    #4A8040;
+      --brand-dark:   #1C3018;
+      --brand-pale:   #3D5C38;
+    }
+
+    /* ============================================================
+       TYPOGRAPHY THEMES
+       ============================================================ */
+
+    /* Type A: Fraunces + Inter (current — default in :root) */
+
+    /* Type B: Playfair + Lora */
+    [data-type="b"] {
+      --f-display:       'Playfair Display', Georgia, serif;
+      --f-body:          'Lora', Georgia, serif;
+      --f-display-style: italic;
+    }
+    [data-type="b"] .pv-nav-logo,
+    [data-type="b"] .hero-split__title,
+    [data-type="b"] .hero-centered__title,
+    [data-type="b"] .hero-typo__title,
+    [data-type="b"] .pv-card__title,
+    [data-type="b"] .pv-about__title,
+    [data-type="b"] .pv-gallery-heading,
+    [data-type="b"] .pv-quote blockquote,
+    [data-type="b"] .pv-buttons-section h2,
+    [data-type="b"] .pv-footer-logo {
+      font-family: 'Playfair Display', Georgia, serif;
+      letter-spacing: -.01em;
+    }
+
+    /* ============================================================
+       HERO LAYOUT THEMES
+       ============================================================ */
+    [data-hero="b"] .hero-split,
+    [data-hero="c"] .hero-split { display: none; }
+    [data-hero="a"] .hero-centered,
+    [data-hero="c"] .hero-centered { display: none; }
+    [data-hero="a"] .hero-typo,
+    [data-hero="b"] .hero-typo { display: none; }
+
+    /* ============================================================
+       GALLERY THEMES
+       ============================================================ */
+    [data-gallery="b"] .gallery-masonry,
+    [data-gallery="c"] .gallery-masonry { display: none; }
+    [data-gallery="a"] .gallery-grid,
+    [data-gallery="c"] .gallery-grid { display: none; }
+    [data-gallery="a"] .gallery-strip,
+    [data-gallery="b"] .gallery-strip { display: none; }
+
+    /* ============================================================
+       BUTTON THEMES
+       ============================================================ */
+
+    /* Btn A: Minimal outline (current — default in :root) */
+
+    /* Btn B: Rounded pill */
+    [data-btn="b"] .btn {
+      --btn-radius:         100px;
+      --btn-border-width:   1.5px;
+      --btn-padding:        .85rem 2.2rem;
+      --btn-letter-spacing: .08em;
+    }
+
+    /* Btn C: Flat with underline */
+    [data-btn="c"] .btn {
+      --btn-radius:         0px;
+      --btn-border-width:   0px;
+      --btn-padding:        .5rem 0;
+      --btn-shadow:         none;
+      --btn-letter-spacing: .1em;
+      border-bottom: 2px solid var(--accent) !important;
+      border-top: none !important;
+      border-left: none !important;
+      border-right: none !important;
+    }
+    [data-btn="c"] .btn:hover {
+      background: transparent !important;
+      color: var(--ink) !important;
+      transform: none;
+      border-bottom-color: var(--ink) !important;
+    }
+    [data-btn="c"] .btn--ghost {
+      border-bottom-color: rgba(255,255,255,.5) !important;
+      color: var(--white);
+    }
+    [data-btn="c"] .btn--ghost:hover {
+      border-bottom-color: var(--white) !important;
+      color: var(--white) !important;
+      background: transparent !important;
+    }
+    [data-btn="c"] .btn--fill {
+      background: transparent !important;
+      color: var(--ink) !important;
+      border-bottom-color: var(--ink) !important;
+    }
+    [data-btn="c"] .btn--fill:hover { background: transparent !important; }
+
+    /* ── Selection indicator bar ────────────────────────────── */
+    .pv-current-bar {
+      position: sticky;
+      top: 64px;
+      z-index: 90;
+      background: rgba(19,19,16,.92);
+      backdrop-filter: blur(8px);
+      padding: 10px clamp(24px, 5vw, 72px);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .pv-pill {
+      font-size: .66rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 100px;
+      border: 1px solid rgba(255,255,255,.15);
+      color: rgba(253,252,249,.6);
+    }
+    .pv-pill span { color: #c4915a; }
+
+    /* ── Responsive ─────────────────────────────────────────── */
+    @media (max-width: 1100px) {
+      .cp { width: 260px; }
+      .preview-wrap { margin-left: 260px; }
+    }
+    @media (max-width: 900px) {
+      .cp {
+        position: fixed;
+        bottom: 0; top: auto; left: 0; right: 0;
+        width: 100%;
+        height: auto;
+        max-height: 48vh;
+        border-right: none;
+        border-top: 1px solid #2a2a27;
+        flex-direction: column;
+      }
+      .preview-wrap { margin-left: 0; padding-bottom: 340px; }
+      .cp-body { display: flex; overflow-x: auto; padding: 0 12px 12px; gap: 12px; }
+      .cp-section {
+        flex-shrink: 0;
+        min-width: 200px;
+        border-bottom: none;
+        border-right: 1px solid #2a2a27;
+      }
+      .cp-send { flex-shrink: 0; min-width: 160px; border-top: none; padding-top: 12px; }
+      .hero-split { grid-template-columns: 1fr; min-height: 60vh; }
+      .hero-split__img { min-height: 40vh; }
+      .pv-features { grid-template-columns: 1fr; }
+      .pv-about { grid-template-columns: 1fr; }
+      .pv-footer-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-masonry { columns: 2; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════
+     CONTROL PANEL
+     ═══════════════════════════════════════════════════════════ -->
+<aside class="cp" role="complementary" aria-label="Design options">
+  <div class="cp-header">
+    <h1>Design Preview</h1>
+    <p>Jess Linton — choose your options below and see them update live</p>
+  </div>
+
+  <div class="cp-body" id="cp-body">
+
+    <!-- PALETTE -->
+    <div class="cp-section">
+      <span class="cp-label">Colour palette</span>
+      <div class="opt-grid opt-grid--palette">
+
+        <button class="opt-btn active" data-group="palette" data-val="a">
+          <div class="palette-swatch">
+            <span style="background:#F8F5F0"></span>
+            <span style="background:#2C4A38"></span>
+            <span style="background:#C4915A"></span>
+            <span style="background:#131310"></span>
+          </div>
+          <div>
+            <div class="opt-name">Warm Editorial</div>
+            <div class="opt-tag">Current site</div>
+          </div>
+        </button>
+
+        <button class="opt-btn" data-group="palette" data-val="b">
+          <div class="palette-swatch">
+            <span style="background:#F2F3F5"></span>
+            <span style="background:#1D3A5C"></span>
+            <span style="background:#9B7FA8"></span>
+            <span style="background:#14161A"></span>
+          </div>
+          <div>
+            <div class="opt-name">Cool Slate</div>
+            <div class="opt-tag">Navy + Lavender</div>
+          </div>
+        </button>
+
+        <button class="opt-btn" data-group="palette" data-val="c">
+          <div class="palette-swatch">
+            <span style="background:#111610"></span>
+            <span style="background:#5C9950"></span>
+            <span style="background:#A8C840"></span>
+            <span style="background:#E8EDE4"></span>
+          </div>
+          <div>
+            <div class="opt-name">Botanical Dark</div>
+            <div class="opt-tag">Dark mode</div>
+          </div>
+        </button>
+
+      </div>
+    </div>
+
+    <!-- TYPOGRAPHY -->
+    <div class="cp-section">
+      <span class="cp-label">Typography</span>
+      <div class="opt-grid">
+
+        <button class="opt-btn active" data-group="type" data-val="a">
+          <div class="swatch" style="background:#f0ede6; display:flex; align-items:center; justify-content:center; font-family:'Fraunces',serif; font-style:italic; font-size:.85rem; color:#131310; border-color:transparent;">Aa</div>
+          <div>
+            <div class="opt-name">Fraunces + Inter</div>
+            <div class="opt-tag">Current site</div>
+          </div>
+        </button>
+
+        <button class="opt-btn" data-group="type" data-val="b">
+          <div class="swatch" style="background:#f0ede6; display:flex; align-items:center; justify-content:center; font-family:'Playfair Display',serif; font-style:italic; font-size:.85rem; color:#131310; border-color:transparent;">Aa</div>
+          <div>
+            <div class="opt-name">Playfair + Lora</div>
+            <div class="opt-tag">Classic serif</div>
+          </div>
+        </button>
+
+      </div>
+    </div>
+
+    <!-- HERO LAYOUT -->
+    <div class="cp-section">
+      <span class="cp-label">Hero layout</span>
+      <div class="opt-grid">
+
+        <button class="opt-btn active" data-group="hero" data-val="a">
+          <div class="swatch" style="background:#2C4A38; display:grid; grid-template-columns:1fr 1fr; border-color:transparent;">
+            <span style="background:rgba(0,0,0,.3);height:100%;"></span>
+          </div>
+          <div>
+            <div class="opt-name">Split Screen</div>
+            <div class="opt-tag">Current site</div>
+          </div>
+        </button>
+
+        <button class="opt-btn" data-group="hero" data-val="b">
+          <div class="swatch" style="background: linear-gradient(135deg,#3a3a35 0%,#131310 100%); border-color:transparent;"></div>
+          <div>
+            <div class="opt-name">Centred + Image</div>
+            <div class="opt-tag">Full-screen photo</div>
+          </div>
+        </button>
+
+        <button class="opt-btn" data-group="hero" data-val="c">
+          <div class="swatch" style="background:#f8f5f0; border-color:#d5d0c8; display:flex; align-items:center; justify-content:center;">
+            <span style="font-family:serif; font-size:.6rem; color:#131310; font-style:italic; white-space:nowrap;">Art that heals</span>
+          </div>
+          <div>
+            <div class="opt-name">Type Only</div>
+            <div class="opt-tag">No hero image</div>
+          </div>
+        </button>
+
+      </div>
+    </div>
+
+    <!-- GALLERY -->
+    <div class="cp-section">
+      <span class="cp-label">Gallery style</span>
+      <div class="opt-grid">
+
+        <button class="opt-btn active" data-group="gallery" data-val="a">
+          <div class="swatch" style="background:#e8e4dc; display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1.4fr; gap:2px; border-color:transparent;">
+            <span style="background:#c4b9a8;grid-row:1;"></span>
+            <span style="background:#c4b9a8;grid-row:1/3;"></span>
+            <span style="background:#c4b9a8;"></span>
+          </div>
+          <div>
+            <div class="opt-name">Masonry</div>
+            <div class="opt-tag">Current site</div>
+          </div>
+        </button>
+
+        <button class="opt-btn" data-group="gallery" data-val="b">
+          <div class="swatch" style="background:#e8e4dc; display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr; gap:2px; border-color:transparent;">
+            <span style="background:#c4b9a8;"></span>
+            <span style="background:#c4b9a8;"></span>
+            <span style="background:#c4b9a8;"></span>
+            <span style="background:#c4b9a8;"></span>
+          </div>
+          <div>
+            <div class="opt-name">Square Grid</div>
+            <div class="opt-tag">Uniform cells</div>
+          </div>
+        </button>
+
+        <button class="opt-btn" data-group="gallery" data-val="c">
+          <div class="swatch" style="background:#e8e4dc; display:flex; gap:2px; align-items:stretch; border-color:transparent; overflow:hidden;">
+            <span style="background:#c4b9a8; flex-shrink:0; width:10px;"></span>
+            <span style="background:#c4b9a8; flex-shrink:0; width:10px;"></span>
+            <span style="background:#c4b9a8; flex-shrink:0; width:10px;"></span>
+          </div>
+          <div>
+            <div class="opt-name">Film Strip</div>
+            <div class="opt-tag">Scroll sideways</div>
+          </div>
+        </button>
+
+      </div>
+    </div>
+
+    <!-- BUTTONS -->
+    <div class="cp-section">
+      <span class="cp-label">Button style</span>
+      <div class="opt-grid">
+
+        <button class="opt-btn active" data-group="btn" data-val="a">
+          <div class="swatch" style="background:transparent; border:1.5px solid #131310; border-radius:0; display:flex; align-items:center; justify-content:center;">
+            <span style="font-size:.5rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:#131310;">Button</span>
+          </div>
+          <div>
+            <div class="opt-name">Minimal Outline</div>
+            <div class="opt-tag">Current site</div>
+          </div>
+        </button>
+
+        <button class="opt-btn" data-group="btn" data-val="b">
+          <div class="swatch" style="background:transparent; border:1.5px solid #131310; border-radius:100px; display:flex; align-items:center; justify-content:center;">
+            <span style="font-size:.5rem; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:#131310;">Button</span>
+          </div>
+          <div>
+            <div class="opt-name">Rounded Pill</div>
+            <div class="opt-tag">Softer, modern</div>
+          </div>
+        </button>
+
+        <button class="opt-btn" data-group="btn" data-val="c">
+          <div class="swatch" style="background:transparent; border:none; border-bottom:2px solid #C4915A; display:flex; align-items:center; justify-content:center;">
+            <span style="font-size:.5rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:#131310;">Button</span>
+          </div>
+          <div>
+            <div class="opt-name">Underline</div>
+            <div class="opt-tag">Minimal, editorial</div>
+          </div>
+        </button>
+
+      </div>
+    </div>
+
+  </div><!-- /cp-body -->
+
+  <div class="cp-send">
+    <button class="send-btn" id="send-btn" onclick="copyChoices()">Copy my choices</button>
+    <p class="send-note" id="send-note">Click to copy your selections as text</p>
+  </div>
+</aside>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     PREVIEW AREA
+     ═══════════════════════════════════════════════════════════ -->
+<div class="preview-wrap">
+  <div class="preview-frame" id="preview" data-palette="a" data-type="a" data-hero="a" data-gallery="a" data-btn="a">
+
+    <!-- Nav -->
+    <nav class="pv-nav">
+      <span class="pv-nav-logo">Jess Linton</span>
+      <div class="pv-nav-links">
+        <span class="pv-nav-link">About</span>
+        <span class="pv-nav-link">Art Therapy</span>
+        <span class="pv-nav-link">Art</span>
+        <span class="pv-nav-link">Community</span>
+        <span class="pv-nav-link">Contact</span>
+      </div>
+    </nav>
+
+    <!-- Current selection bar -->
+    <div class="pv-current-bar" id="pv-bar">
+      <div class="pv-pill">Palette: <span id="pill-palette">Warm Editorial</span></div>
+      <div class="pv-pill">Type: <span id="pill-type">Fraunces + Inter</span></div>
+      <div class="pv-pill">Hero: <span id="pill-hero">Split Screen</span></div>
+      <div class="pv-pill">Gallery: <span id="pill-gallery">Masonry</span></div>
+      <div class="pv-pill">Buttons: <span id="pill-btn">Minimal Outline</span></div>
+    </div>
+
+    <!-- Hero: all three in DOM, CSS hides the inactive two -->
+    <div class="pv-hero-wrap">
+
+      <!-- Hero A: Split screen -->
+      <div class="hero-split">
+        <div class="hero-split__img">
+          <img src="https://images.squarespace-cdn.com/content/v1/53bfdc39e4b014ff51913091/1412776034395-UX0D32WOQ8JZE6H02OFP/Jess+Linton+2014++04.jpg" alt="Jess Linton artwork" loading="lazy">
+        </div>
+        <div class="hero-split__content">
+          <p class="hero-split__eyebrow">Sussex, UK</p>
+          <h1 class="hero-split__title">
+            Art that heals,<br>
+            <strong>connects &amp; bears witness.</strong>
+          </h1>
+          <p class="hero-split__desc">HCPC registered Art Psychotherapist, Visual Artist and Creative Practitioner. Over 15 years working in community, education and health settings.</p>
+          <div class="hero-btns">
+            <a href="#" class="btn btn--ghost">About Jess</a>
+            <a href="#" class="btn btn--ghost">Art Therapy</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero B: Centred over image -->
+      <div class="hero-centered">
+        <div class="hero-centered__bg">
+          <img src="https://images.squarespace-cdn.com/content/v1/53bfdc39e4b014ff51913091/1618168947769-01UC9S8LN32LQ6JS17UB/PHOTO-2021-04-10-10-13-19.jpg" alt="Jess Linton creative work" loading="lazy">
+        </div>
+        <div class="hero-centered__content">
+          <span class="hero-centered__eyebrow">Sussex, UK — HCPC Registered</span>
+          <h1 class="hero-centered__title">Art that heals, connects &amp; bears witness.</h1>
+          <p class="hero-centered__desc">Art Psychotherapist, Visual Artist and Creative Practitioner. Over 15 years working in community, education and health settings.</p>
+          <div class="hero-btns" style="justify-content:center;">
+            <a href="#" class="btn btn--ghost">About Jess</a>
+            <a href="#" class="btn btn--ghost">Art Therapy</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero C: Typographic -->
+      <div class="hero-typo">
+        <p class="hero-typo__kicker">Sussex, UK — HCPC Registered Art Psychotherapist</p>
+        <h1 class="hero-typo__title">Art that heals, connects &amp; bears witness.</h1>
+        <div class="hero-typo__rule"></div>
+        <p class="hero-typo__desc">Visual Artist and Creative Practitioner with over 15 years working in community, education and health settings across Sussex and beyond.</p>
+        <div class="hero-btns">
+          <a href="#" class="btn">About Jess <span>→</span></a>
+          <a href="#" class="btn btn--accent">Art Therapy <span>→</span></a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Marquee -->
+    <div class="pv-marquee">
+      <div class="pv-marquee-inner">
+        <span>Art Therapy</span><span>·</span>
+        <span>Visual Art</span><span>·</span>
+        <span>Community Practice</span><span>·</span>
+        <span>Sussex, UK</span><span>·</span>
+        <span>HCPC Registered</span><span>·</span>
+        <span>Est. 2009</span><span>·</span>
+        <span>Art Therapy</span><span>·</span>
+        <span>Visual Art</span><span>·</span>
+        <span>Community Practice</span><span>·</span>
+        <span>Sussex, UK</span><span>·</span>
+        <span>HCPC Registered</span><span>·</span>
+        <span>Est. 2009</span><span>·</span>
+      </div>
+    </div>
+
+    <!-- Feature cards -->
+    <div class="pv-features">
+      <div class="pv-card">
+        <span class="pv-card__num">01</span>
+        <h2 class="pv-card__title">Art Therapy</h2>
+        <p>HCPC registered art psychotherapy for individuals, groups and communities in need of emotional and psychological support.</p>
+      </div>
+      <div class="pv-card">
+        <span class="pv-card__num">02</span>
+        <h2 class="pv-card__title">Visual Art</h2>
+        <p>Socially engaged art practice exploring displacement, identity, natural materials and the politics of belonging.</p>
+      </div>
+      <div class="pv-card">
+        <span class="pv-card__num">03</span>
+        <h2 class="pv-card__title">Community</h2>
+        <p>Creative collaborations with schools, hospitals, refugee networks and community groups across Sussex and beyond.</p>
+      </div>
+    </div>
+
+    <!-- About strip -->
+    <div class="pv-about">
+      <div class="pv-about__img">
+        <img src="https://images.squarespace-cdn.com/content/v1/53bfdc39e4b014ff51913091/1430474262166-28FCTQZENUTSGN63FWZD/image-asset.jpeg" alt="Jess Linton working with participants" loading="lazy">
+      </div>
+      <div class="pv-about__text">
+        <span class="pv-about__eyebrow">About Jess</span>
+        <h2 class="pv-about__title">Fifteen years in arts, health &amp; community</h2>
+        <p>Jess Linton is an HCPC registered Art Psychotherapist, Visual Artist and Creative Practitioner. She has been working creatively in community, arts, social action, education and health settings with all ages for over 15 years.</p>
+        <p>She is an advocate for play and curiosity as a basic human right — for helping us to explore and make sense of ourselves and the world around us.</p>
+        <a href="#" class="btn">Read more <span>→</span></a>
+      </div>
+    </div>
+
+    <!-- Quote band -->
+    <div class="pv-quote">
+      <blockquote>"Art therapy has supported our clients — I have really witnessed how it has enabled people to start to rebuild their lives."</blockquote>
+      <cite>Therapeutic Case Unit Manager, Refugee Service</cite>
+    </div>
+
+    <!-- Gallery section -->
+    <div class="pv-gallery-section">
+      <h2 class="pv-gallery-heading">Selected Work</h2>
+
+      <!-- Gallery A: Masonry -->
+      <div class="gallery-masonry">
+        <div class="gitem"><img src="https://images.squarespace-cdn.com/content/v1/53bfdc39e4b014ff51913091/1658414254594-1MLJTUUY4GI8JIV34SBJ/97F96999-11C6-4F11-AF3F-D323D7BD748E+%281%29.jpg" alt="Frequent Crossings to England" loading="lazy"><div class="gitem__label"><span>Frequent Crossings to England</span></div></div>
+        <div class="gitem"><img src="https://images.squarespace-cdn.com/content/v1/53bfdc39e4b014ff51913091/1455539179425-CUVAN0HFW5OOHRJJFQOA/IMG_4607.JPG" alt="Bread Freedom and Social Justice" loading="lazy"><div class="gitem__label"><span>Bread Freedom and Social Justice</span></div></div>
+        <div class="gitem"><img src="https://images.squarespace-cdn.com/content/v1/53bfdc39e4b014ff51913091/1568473002893-PPUAKE888FD6ET6YRYU7/IMG_5248.JPG" alt="Shadow Play + Solace" loading="lazy"><div class="gitem__label"><span>Shadow Play + Solace</span></div></div>
+        <div class="gitem"><img src="https://images.squarespace-cdn.com/content/v1/53bfdc39e4b014ff51913091/1658414523807-3KUJ7KOMH0VWX5H5P3BD/6B1D60F4-0A47-407E-B3C3-99D790E34F09.jpg" alt="Shadow Play + Solace I" loading="lazy"><div class="gitem__label"><span>Shadow Play + Solace I</span></div></div>
+        <div class="gitem"><img src="https://images.squarespace-cdn.com/content/v1/53bfdc39e4b014ff51913091/1658414724755-A0ZBCHYBSYNW4GR4OQ8M/CE51624E-D7BA-4BC1-8D92-7F95A361DD13.jpg" alt="The Sun Has Just Come Up" loading="lazy"><div class="gitem__label"><span>The Sun Has Just Come Up</span></div></div>
+        <div class="gitem"><img src="https://images.squarespace-cdn.com/content/v1/53bfdc39e4b014ff51913091/1412777392466-UZ1TXSGPVVOUAC2I2AMR/Rising+sun+jpeg.jpg" alt="Rising Sun" loading="lazy"><div class="gitem__label"><span>Rising Sun</span></div></div>
+      </div>
+
+      <!-- Gallery B: Square grid -->
+      <div class="gallery-grid">
+        <div class="gitem"><img src="https://images.squarespace-cdn.com/content/v1/53bfdc39e4b014ff51913091/1658414254594-1MLJTUUY4GI8JIV34SBJ/97F96999-11C6-4F11-AF3F-D323D7BD748E+%281%29.jpg" alt="Frequent Crossings to England" loading="lazy"><div class="gitem__label"><span>Frequent Crossings</span></div></div>
+        <div class="gitem"><img src="https://images.squarespace-cdn.com/content/v1/53bfdc39e4b014ff51913091/1455539179425-CUVAN0HFW5OOHRJJFQOA/IMG_4607.JPG" alt="Bread Freedom and Social Justice" loading="lazy"><div class="gitem__label"><span>Bread Freedom</span></div></div>
+        <div class="gitem"><img src="https://images.squarespace-cdn.com/content/v1/53bfdc39e4b014ff51913091/1568473002893-PPUAKE888FD6ET6YRYU7/IMG_5248.JPG" alt="Shadow Play" loading="lazy"><div class="gitem__label"><span>Shadow Play</span></div></div>
+        <div class="gitem"><img src="https://images.squarespace-cdn.com/content/v1/53bfdc39e4b014ff51913091/1658414523807-3KUJ7KOMH0VWX5H5P3BD/6B1D60F4-0A47-407E-B3C3-99D790E34F09.jpg" alt="Shadow Play I" loading="lazy"><div class="gitem__label"><span>Shadow Play I</span></div></div>
+        <div class="gitem"><img src="https://images.squarespace-cdn.com/content/v1/53bfdc39e4b014ff51913091/1658414724755-A0ZBCHYBSYNW4GR4OQ8M/CE51624E-D7BA-4BC1-8D92-7F95A361DD13.jpg" alt="The Sun Has Just Come Up" loading="lazy"><div class="gitem__label"><span>The Sun Has Just Come Up</span></div></div>
+        <div class="gitem"><img src="https://images.squarespace-cdn.com/content/v1/53bfdc39e4b014ff51913091/1412777392466-UZ1TXSGPVVOUAC2I2AMR/Rising+sun+jpeg.jpg" alt="Rising Sun" loading="lazy"><div class="gitem__label"><span>Rising Sun</span></div></div>
+        <div class="gitem"><img src="https://images.squarespace-cdn.com/content/v1/53bfdc39e4b014ff51913091/1412777500187-5WNGOLS77IEGGJ6HBYTF/You%26MeWeCollide.jpg" alt="You and Me We Collide" loading="lazy"><div class="gitem__label"><span>You and Me We Collide</span></div></div>
+        <div class="gitem"><img src="https://images.squarespace-cdn.com/content/v1/53bfdc39e4b014ff51913091/1524093262059-BAOZCYW0HTPRDO6NCVE4/CJAT+JL+01+What+makes+a+safe+space.JPG" alt="What Makes a Safe Space?" loading="lazy"><div class="gitem__label"><span>What Makes a Safe Space?</span></div></div>
+      </div>
+
+      <!-- Gallery C: Film strip -->
+      <div class="gallery-strip">
+        <div class="gitem"><img src="https://images.squarespace-cdn.com/content/v1/53bfdc39e4b014ff51913091/1658414254594-1MLJTUUY4GI8JIV34SBJ/97F96999-11C6-4F11-AF3F-D323D7BD748E+%281%29.jpg" alt="Frequent Crossings to England" loading="lazy"><div class="gitem__label"><span>Frequent Crossings to England</span></div></div>
+        <div class="gitem"><img src="https://images.squarespace-cdn.com/content/v1/53bfdc39e4b014ff51913091/1455539179425-CUVAN0HFW5OOHRJJFQOA/IMG_4607.JPG" alt="Bread Freedom and Social Justice" loading="lazy"><div class="gitem__label"><span>Bread Freedom and Social Justice</span></div></div>
+        <div class="gitem"><img src="https://images.squarespace-cdn.com/content/v1/53bfdc39e4b014ff51913091/1568473002893-PPUAKE888FD6ET6YRYU7/IMG_5248.JPG" alt="Shadow Play + Solace" loading="lazy"><div class="gitem__label"><span>Shadow Play + Solace</span></div></div>
+        <div class="gitem"><img src="https://images.squarespace-cdn.com/content/v1/53bfdc39e4b014ff51913091/1658414523807-3KUJ7KOMH0VWX5H5P3BD/6B1D60F4-0A47-407E-B3C3-99D790E34F09.jpg" alt="Shadow Play + Solace I" loading="lazy"><div class="gitem__label"><span>Shadow Play + Solace I</span></div></div>
+        <div class="gitem"><img src="https://images.squarespace-cdn.com/content/v1/53bfdc39e4b014ff51913091/1658414724755-A0ZBCHYBSYNW4GR4OQ8M/CE51624E-D7BA-4BC1-8D92-7F95A361DD13.jpg" alt="The Sun Has Just Come Up" loading="lazy"><div class="gitem__label"><span>The Sun Has Just Come Up</span></div></div>
+        <div class="gitem"><img src="https://images.squarespace-cdn.com/content/v1/53bfdc39e4b014ff51913091/1412777392466-UZ1TXSGPVVOUAC2I2AMR/Rising+sun+jpeg.jpg" alt="Rising Sun" loading="lazy"><div class="gitem__label"><span>Rising Sun</span></div></div>
+        <div class="gitem"><img src="https://images.squarespace-cdn.com/content/v1/53bfdc39e4b014ff51913091/1412777500187-5WNGOLS77IEGGJ6HBYTF/You%26MeWeCollide.jpg" alt="You and Me We Collide" loading="lazy"><div class="gitem__label"><span>You and Me We Collide</span></div></div>
+        <div class="gitem"><img src="https://images.squarespace-cdn.com/content/v1/53bfdc39e4b014ff51913091/1524093262059-BAOZCYW0HTPRDO6NCVE4/CJAT+JL+01+What+makes+a+safe+space.JPG" alt="What Makes a Safe Space?" loading="lazy"><div class="gitem__label"><span>What Makes a Safe Space?</span></div></div>
+      </div>
+
+    </div>
+
+    <!-- Button styles showcase -->
+    <div class="pv-buttons-section">
+      <h2>Buttons in context</h2>
+      <p>How call-to-action buttons look on the light background.</p>
+      <div class="btn-showcase">
+        <a href="#" class="btn">Read more →</a>
+        <a href="#" class="btn btn--fill">Get in touch</a>
+        <a href="#" class="btn btn--green">Art Therapy →</a>
+        <a href="#" class="btn btn--accent">View artwork →</a>
+      </div>
+      <div class="btn-showcase-dark">
+        <a href="#" class="btn btn--ghost">About Jess</a>
+        <a href="#" class="btn btn--ghost">Art Therapy</a>
+        <span style="font-size:.7rem; color:rgba(253,252,249,.4); letter-spacing:.06em; text-transform:uppercase;">On dark backgrounds</span>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="pv-footer">
+      <div class="pv-footer-grid">
+        <div>
+          <span class="pv-footer-logo">Jess Linton</span>
+          <p class="pv-footer-tagline">HCPC Registered Art Psychotherapist,<br>Visual Artist &amp; Creative Practitioner.<br>Sussex, UK.</p>
+        </div>
+        <div>
+          <span class="pv-footer-col-label">Pages</span>
+          <div class="pv-footer-links">
+            <a href="#">About</a>
+            <a href="#">Art Therapy</a>
+            <a href="#">Visual Art</a>
+            <a href="#">Community</a>
+            <a href="#">Blog</a>
+            <a href="#">Contact</a>
+          </div>
+        </div>
+        <div>
+          <span class="pv-footer-col-label">Contact</span>
+          <div class="pv-footer-links">
+            <a href="#">jess.a.linton@gmail.com</a>
+            <a href="#">+44 (0) 7834 686838</a>
+            <a href="#">Sussex, UK</a>
+            <a href="#">HCPC No. AS14954</a>
+          </div>
+        </div>
+      </div>
+      <p class="pv-footer-bottom">© 2025 Jess Linton. All rights reserved.</p>
+    </footer>
+
+  </div><!-- /preview-frame -->
+</div><!-- /preview-wrap -->
+
+
+<script>
+  // ── State ─────────────────────────────────────────────────
+  const state = { palette: 'a', type: 'a', hero: 'a', gallery: 'a', btn: 'a' };
+
+  const labels = {
+    palette: { a: 'Warm Editorial', b: 'Cool Slate', c: 'Botanical Dark' },
+    type:    { a: 'Fraunces + Inter', b: 'Playfair + Lora' },
+    hero:    { a: 'Split Screen', b: 'Centred + Image', c: 'Type Only' },
+    gallery: { a: 'Masonry', b: 'Square Grid', c: 'Film Strip' },
+    btn:     { a: 'Minimal Outline', b: 'Rounded Pill', c: 'Underline' },
+  };
+
+  const pillIds = {
+    palette: 'pill-palette',
+    type:    'pill-type',
+    hero:    'pill-hero',
+    gallery: 'pill-gallery',
+    btn:     'pill-btn',
+  };
+
+  const frame = document.getElementById('preview');
+
+  // ── Apply selection ───────────────────────────────────────
+  function applyOption(group, val) {
+    state[group] = val;
+
+    // Update data attribute on frame
+    frame.dataset[group] = val;
+
+    // Sync active class in control panel
+    document.querySelectorAll(`[data-group="${group}"]`).forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.val === val);
+    });
+
+    // Update status pill
+    const pill = document.getElementById(pillIds[group]);
+    if (pill) pill.textContent = labels[group][val];
+  }
+
+  // ── Event delegation on control panel ────────────────────
+  document.getElementById('cp-body').addEventListener('click', e => {
+    const btn = e.target.closest('[data-group]');
+    if (!btn) return;
+    applyOption(btn.dataset.group, btn.dataset.val);
+  });
+
+  // ── Copy choices ──────────────────────────────────────────
+  function copyChoices() {
+    const lines = [
+      'My design choices for jesslinton.co.uk:',
+      '',
+      `Colour palette: ${labels.palette[state.palette]}`,
+      `Typography:     ${labels.type[state.type]}`,
+      `Hero layout:    ${labels.hero[state.hero]}`,
+      `Gallery style:  ${labels.gallery[state.gallery]}`,
+      `Button style:   ${labels.btn[state.btn]}`,
+    ];
+    const text = lines.join('\n');
+
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(text).then(() => {
+        const note = document.getElementById('send-note');
+        note.textContent = 'Copied! Paste into an email to send your choices.';
+        note.style.color = '#3d6350';
+        setTimeout(() => {
+          note.textContent = 'Click to copy your selections as text';
+          note.style.color = '';
+        }, 3000);
+      });
+    } else {
+      // Fallback: show in prompt
+      window.prompt('Copy this text and send it:', text);
+    }
+  }
+
+  // ── Keyboard shortcuts ────────────────────────────────────
+  // P = cycle palette, T = cycle type, H = cycle hero,
+  // G = cycle gallery, B = cycle buttons
+  document.addEventListener('keydown', e => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    const cycle = (group, opts) => {
+      const cur = opts.indexOf(state[group]);
+      applyOption(group, opts[(cur + 1) % opts.length]);
+    };
+    const map = {
+      p: () => cycle('palette', ['a','b','c']),
+      t: () => cycle('type',    ['a','b']),
+      h: () => cycle('hero',    ['a','b','c']),
+      g: () => cycle('gallery', ['a','b','c']),
+      b: () => cycle('btn',     ['a','b','c']),
+    };
+    if (map[e.key.toLowerCase()]) map[e.key.toLowerCase()]();
+  });
+</script>
+
+</body>
+</html>

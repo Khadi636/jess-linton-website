@@ -1,0 +1,39 @@
+Options -Indexes
+
+# ── Security ──────────────────────────────────────────────────────────────────
+# Block direct access to sensitive directories
+<FilesMatch "\.(sql|log|env|json|md)$">
+    Order deny,allow
+    Deny from all
+</FilesMatch>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Block access to includes/ directory
+  RewriteRule ^includes/ - [F,L]
+  RewriteRule ^database/ - [F,L]
+  RewriteRule ^config\.php$ - [F,L]
+
+  # Allow access to public/ assets
+  RewriteRule ^public/ - [L]
+
+  # Optional: strip .php extension
+  # Access /about → /about.php
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME}.php -f
+  RewriteRule ^([^/]+)$ $1.php [L]
+</IfModule>
+
+# ── Custom 404 ────────────────────────────────────────────────────────────────
+ErrorDocument 404 /404.php
+
+# ── Security headers ──────────────────────────────────────────────────────────
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set X-XSS-Protection "1; mode=block"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>

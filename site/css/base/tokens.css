@@ -1,0 +1,49 @@
+/* ============================================================
+   css/base/tokens.css
+   Design tokens: every CSS custom property used on the site.
+   Edit values here to change colours, fonts, spacing globally.
+   ============================================================ */
+
+/* ── Tokens ─────────────────────────────────────────────── */
+:root {
+  /* Colour — warm editorial palette */
+  --ink:          #131310;
+  --ink-2:        #3A3A35;
+  --ink-3:        #6B6B64;   /* was #787870 — darkened for WCAG AA (4.94:1 on --bg) */
+  --ink-4:        #BEBDB5;
+  --border:       #E2DFDA;
+  --border-light: #EDEBE5;
+  --surface:      #F0EDE6;
+  --surface-2:    #E8E4DC;
+  --bg:           #F8F5F0;   /* warm handmade-paper off-white */
+  --white:        #FDFCF9;
+
+  /* Brand — used with intention, not liberally */
+  --green:        #2C4A38;
+  --green-mid:    #3D6350;
+  --green-dark:   #1E3327;
+  --green-pale:   #D4E4DB;
+  --sand:         #C4915A;
+  --sand-light:   #D9A87A;
+  --sand-lt:      #F5EBE0;
+
+  /* Typography */
+  --f-display:    'Fraunces', Georgia, serif;
+  --f-body:       'Inter', system-ui, sans-serif;
+
+  /* Container */
+  --max-w:        1280px;
+  --prose-w:      68ch;
+
+  /* Space — 4px base */
+  --s1: .25rem;   --s2: .5rem;   --s3: .75rem;  --s4: 1rem;
+  --s5: 1.25rem;  --s6: 1.5rem;  --s8: 2rem;    --s10: 2.5rem;
+  --s12: 3rem;    --s16: 4rem;   --s20: 5rem;   --s24: 6rem;
+  --s28: 7rem;    --s32: 8rem;   --s40: 10rem;  --s48: 12rem;
+
+  /* Motion — ease-out-quint: physical, premium */
+  --ease-out:     cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out:  cubic-bezier(0.4, 0, 0.2, 1);
+  --dur:          260ms;
+  --dur-slow:     520ms;
+}

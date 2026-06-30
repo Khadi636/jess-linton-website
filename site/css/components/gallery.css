@@ -1,0 +1,182 @@
+/* ============================================================
+   css/components/gallery.css
+   Masonry gallery used on artwork.html and artist.html:
+   - .gallery-preview  — 3-column preview strip on artist.html
+   - .gallery          — full masonry gallery on artwork.html
+   - .gallery-overlay  — green overlay with slide-up title on hover
+   - .gallery-item     — individual item (clickable, opens lightbox)
+   - .lightbox         — fullscreen image lightbox
+   Also: .photo-strip  — community project photo row
+   ============================================================ */
+
+/* ============================================================
+   ARTWORK GALLERY
+   ============================================================ */
+/* Preview strip on artist.html */
+.gallery-preview {
+  columns: 3;
+  column-gap: 5px;
+}
+.gallery-preview__item {
+  break-inside: avoid;
+  margin-bottom: 5px;
+  display: block;
+  position: relative;
+  overflow: hidden;
+  background: var(--surface);
+}
+.gallery-preview__item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform .7s var(--ease-out), filter .4s;
+}
+.gallery-preview__item:hover img {
+  transform: scale(1.05);
+  filter: brightness(.88);
+}
+/* Full artwork gallery */
+.gallery {
+  columns: 3;
+  column-gap: 5px;
+}
+.gallery-item {
+  break-inside: avoid;
+  margin-bottom: 5px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--surface);
+}
+.gallery-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform .7s var(--ease-out), filter .4s;
+}
+.gallery-item:hover img {
+  transform: scale(1.05);
+  filter: brightness(.88);
+}
+
+/* ── Gallery overlay — green tint + slide-up title ────────── */
+.gallery-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(44,74,56,.75);   /* brand green, 75% opacity */
+  opacity: 0;
+  transition: opacity .35s var(--ease-out);
+  display: flex;
+  align-items: flex-end;
+  padding: var(--s5);
+  overflow: hidden;
+}
+.gallery-item:hover .gallery-overlay,
+.gallery-preview__item:hover .gallery-overlay { opacity: 1; }
+
+.gallery-overlay span {
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.95);
+  transform: translateY(100%);          /* slide in from below */
+  transition: transform .38s var(--ease-out);
+  display: block;
+  line-height: 1.4;
+}
+.gallery-item:hover .gallery-overlay span,
+.gallery-preview__item:hover .gallery-overlay span { transform: translateY(0); }
+.gallery-item:focus .gallery-overlay,
+.gallery-preview__item:focus .gallery-overlay { opacity: 1; }
+.gallery-item:focus .gallery-overlay span,
+.gallery-preview__item:focus .gallery-overlay span { transform: translateY(0); }
+
+/* Placeholder for unloaded images */
+.gallery-placeholder {
+  break-inside: avoid;
+  margin-bottom: 5px;
+  background: var(--surface);
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.gallery-placeholder span {
+  font-size: .7rem;
+  color: var(--ink-3);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  text-align: center;
+  padding: var(--s4);
+}
+
+/* ── Lightbox ─────────────────────────────────────────────── */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  background: rgba(19,19,16,.96);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+.lightbox.open { display: flex; }
+.lightbox__img-wrap {
+  position: relative;
+  max-width: min(90vw, 1200px);
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lightbox__img-wrap img {
+  max-width: 100%;
+  max-height: 90vh;
+  object-fit: contain;
+}
+.lightbox__close,
+.lightbox__prev,
+.lightbox__next {
+  position: fixed;
+  background: none;
+  border: none;
+  color: rgba(255,255,255,.5);
+  font-size: 1.5rem;
+  transition: color var(--dur), transform var(--dur);
+  padding: var(--s4);
+}
+.lightbox__close { top: var(--s6); right: var(--s6); font-size: 1.8rem; }
+.lightbox__prev { left: var(--s6); top: 50%; translate: 0 -50%; }
+.lightbox__next { right: var(--s6); top: 50%; translate: 0 -50%; }
+.lightbox__close:hover { color: var(--white); transform: rotate(90deg); }
+.lightbox__prev:hover  { color: var(--white); transform: translateX(-3px); }
+.lightbox__next:hover  { color: var(--white); transform: translateX(3px); }
+.lightbox__caption {
+  position: fixed;
+  bottom: var(--s6);
+  left: 50%;
+  translate: -50% 0;
+  font-size: .7rem;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.55);
+}
+
+/* ============================================================
+   COMMUNITY PHOTO STRIP
+   ============================================================ */
+.photo-strip {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 5px;
+  margin-top: var(--s10);
+}
+.photo-strip img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  display: block;
+}
+

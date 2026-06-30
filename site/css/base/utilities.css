@@ -1,0 +1,117 @@
+/* ============================================================
+   css/base/utilities.css
+   Single-purpose utility classes:
+   - .container / .prose  — max-width wrappers
+   - .text-*              — colour utilities
+   - .mt-*                — margin-top shortcuts
+   - .sr-only             — visually hidden (accessibility)
+   - .rule / .rule-center — decorative sand-colour rules
+   - .reveal / .reveal-x / .reveal-scale — scroll-entrance
+   - .d1–.d6              — stagger delay modifiers
+   ============================================================ */
+
+/* ── Utilities ──────────────────────────────────────────── */
+.container {
+  width: min(100%, var(--max-w));
+  margin-inline: auto;
+  padding-inline: clamp(var(--s6), 4.5vw, var(--s20));
+}
+
+/* Prose: constrained to reading-optimal width */
+.prose { max-width: var(--prose-w); }
+.prose--center { margin-inline: auto; text-align: center; max-width: 54ch; }
+
+.text-muted   { color: var(--ink-3); }
+.text-green   { color: var(--green); }
+.text-sand    { color: var(--sand); }
+.text-serif   { font-family: var(--f-display); }
+.text-italic  { font-style: italic; }
+
+/* ── Spacing utilities ───────────────────────────────────── */
+.mt-4  { margin-top: var(--s4)  !important; }
+.mt-6  { margin-top: var(--s6)  !important; }
+.mt-8  { margin-top: var(--s8)  !important; }
+.mt-10 { margin-top: var(--s10) !important; }
+.mt-12 { margin-top: var(--s12) !important; }
+
+/* ── Screen reader only ──────────────────────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Rules / Dividers ────────────────────────────────────── */
+hr { border: none; border-top: 1px solid var(--border); }
+
+/* Sand rule — used as a section marker or decorative accent */
+.rule {
+  width: 48px; height: 1.5px;
+  background: var(--sand);
+  display: block;
+}
+.rule--center { margin-inline: auto; display: block; }
+
+
+/* ── Scroll reveal animations ────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity .65s var(--ease-out),
+    transform .65s var(--ease-out);
+}
+.reveal.in-view { opacity: 1; transform: none; }
+
+.reveal-x {
+  opacity: 0;
+  transform: translateX(-22px);
+  transition:
+    opacity .65s var(--ease-out),
+    transform .65s var(--ease-out);
+}
+.reveal-x.in-view { opacity: 1; transform: none; }
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(.98);
+  transition:
+    opacity .7s var(--ease-out),
+    transform .7s var(--ease-out);
+}
+.reveal-scale.in-view { opacity: 1; transform: none; }
+
+/* Stagger delays — 80ms intervals */
+.d1 { transition-delay: .06s; }
+.d2 { transition-delay: .14s; }
+.d3 { transition-delay: .22s; }
+.d4 { transition-delay: .30s; }
+.d5 { transition-delay: .38s; }
+.d6 { transition-delay: .48s; }
+
+/* ── Reduced motion — respect OS accessibility setting ───────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Reveal elements immediately — no stagger, no slide */
+  .reveal,
+  .reveal-x,
+  .reveal-scale {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+

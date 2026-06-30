@@ -1,0 +1,57 @@
+/* ============================================================
+   css/base/reset.css
+   Universal box-sizing reset, sensible html/body defaults,
+   and a skip-to-content link for keyboard/screen-reader users.
+   ============================================================ */
+
+/* ── Reset ──────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  text-size-adjust: 100%;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.78;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+img, video { display: block; max-width: 100%; height: auto; }
+a { color: inherit; text-decoration: none; }
+ul, ol { list-style: none; }
+button { font: inherit; cursor: pointer; }
+
+/* Premium focus ring — sand accent, not browser-default blue */
+:focus-visible {
+  outline: 2.5px solid var(--sand);
+  outline-offset: 4px;
+}
+
+/* Brand text selection */
+::selection {
+  background: var(--green-pale);
+  color: var(--ink);
+}
+
+/* ── Skip link (accessibility) ──────────────────────────── */
+.skip-link {
+  position: absolute;
+  top: -9999px; left: var(--s4);
+  background: var(--ink);
+  color: var(--white);
+  padding: var(--s2) var(--s6);
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  z-index: 9999;
+  transition: top .15s;
+}
+.skip-link:focus { top: var(--s4); }
