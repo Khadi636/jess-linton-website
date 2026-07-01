@@ -249,7 +249,7 @@
 @media (max-width: 768px) {
   .cp {
     top: auto;
-    bottom: 64px;   /* sit above mobile bottom nav */
+    bottom: calc(64px + env(safe-area-inset-bottom, 0px));  /* sit above bottom nav + iPhone safe area */
     right: 0;
     left: 0;
     transform: none;

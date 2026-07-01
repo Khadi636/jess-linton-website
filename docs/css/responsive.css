@@ -65,6 +65,9 @@
    RESPONSIVE — mobile (≤ 768px)
    ============================================================ */
 @media (max-width: 768px) {
+  /* Prevent horizontal overflow on narrow screens */
+  body { overflow-x: hidden; }
+
   /* Nav: show hamburger only */
   .nav-links,
   .nav-social { display: none; }
@@ -95,8 +98,12 @@
   /* Section spacing — more compact on small screens */
   .section--xl { padding-block: clamp(var(--s16), 8vw, var(--s24)); }
 
+  /* Section head: allow wrapping on narrow screens */
+  .section-head { flex-wrap: wrap; gap: var(--s3); }
+
   /* Page header */
   .page-header { padding-top: var(--s16); }
+  .page-header h1 { max-width: 100%; }
 
   /* Safe area support for modern phones */
   .site-footer { padding-bottom: calc(var(--s8) + env(safe-area-inset-bottom, 0px)); }
@@ -119,4 +126,25 @@
   .practice-grid { grid-template-columns: 1fr; }
   .practice-card { border-top: none; border-bottom: 1px solid var(--border); }
   .practice-card:last-child { border-bottom: none; }
+
+  /* Media images: landscape crop when stacked full-width */
+  .media-col__img { aspect-ratio: 3/2; }
+
+  /* Text col: tighter top gap when stacked under an image */
+  .text-col { padding-top: var(--s4); }
+
+  /* Services: narrower counter column + tighter paragraph indent */
+  .service {
+    grid-template-columns: 36px 1fr;
+    column-gap: var(--s4);
+  }
+  .service p { padding-left: calc(36px + var(--s4)); }
+
+  /* Blockquote: reduce left padding to reclaim reading width */
+  blockquote { padding-left: var(--s5); }
+  .quote-item blockquote { padding-left: var(--s4); }
+
+  /* Info blocks: tighter horizontal padding */
+  .info-block { padding: var(--s8) var(--s5); }
+
 }
