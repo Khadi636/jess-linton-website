@@ -26,7 +26,3 @@ import './modules/scroll-reveal.js';
 import './modules/slideshow.js';
 import './modules/lightbox.js';
 import './modules/bottom-nav.js';
-
-// Client design preview panel — remove this import after final approval
-import { initPreviewPanel } from './modules/preview-panel.js';
-initPreviewPanel();
