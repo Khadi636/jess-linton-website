@@ -1,0 +1,114 @@
+/* ============================================================
+   css/components/community.css
+   Community landing page — intro, stats, photo strip.
+   Hero + project cards + CTA reuse art-therapy.css classes:
+   .at-hero, .at-cards, .at-card, .at-cta, .at-intro.
+   ============================================================ */
+
+/* ── 2-column intro section ───────────────────────────────── */
+.cm-intro {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: clamp(var(--s10), 5vw, var(--s20));
+  align-items: start;
+}
+
+.cm-intro__heading {
+  font-family: var(--f-display);
+  font-size: clamp(1.7rem, 3.2vw, 2.8rem);
+  font-weight: 200;
+  font-style: italic;
+  letter-spacing: -.022em;
+  line-height: 1.08;
+  color: var(--ink);
+}
+
+.cm-intro__body { padding-top: var(--s2); }
+.cm-intro__body p {
+  font-size: .96rem;
+  line-height: 1.78;
+  color: var(--ink-2);
+  margin-bottom: var(--s5);
+}
+.cm-intro__body p:last-of-type { margin-bottom: var(--s8); }
+
+/* ── Stats / highlights strip ─────────────────────────────── */
+.cm-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin-top: var(--s12);
+}
+
+.cm-stat {
+  background: var(--bg);
+  padding: clamp(var(--s8), 4vw, var(--s12)) clamp(var(--s6), 3vw, var(--s10));
+  text-align: center;
+}
+
+.cm-stat__value {
+  display: block;
+  font-family: var(--f-display);
+  font-size: clamp(2rem, 4.5vw, 3.6rem);
+  font-weight: 200;
+  font-style: italic;
+  color: var(--green);
+  line-height: 1;
+  letter-spacing: -.03em;
+  margin-bottom: var(--s3);
+}
+
+.cm-stat__label {
+  font-family: var(--f-body);
+  font-size: .7rem;
+  font-weight: 500;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  line-height: 1.5;
+}
+
+/* ── Photo strip — 4 square images ───────────────────────── */
+.cm-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+}
+
+.cm-strip__img {
+  overflow: hidden;
+  aspect-ratio: 1;
+  position: relative;
+  background: var(--surface);
+}
+
+.cm-strip__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .65s var(--ease-out);
+}
+.cm-strip__img:hover img { transform: scale(1.07); }
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .cm-intro {
+    grid-template-columns: 1fr;
+    gap: var(--s6);
+  }
+  .cm-stats { grid-template-columns: 1fr 1fr; }
+  .cm-stats .cm-stat:last-child {
+    grid-column: 1 / -1;
+    border-top: 1px solid var(--border);
+  }
+  .cm-strip { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .cm-stats { grid-template-columns: 1fr; }
+  .cm-stats .cm-stat:last-child { grid-column: auto; }
+  .cm-strip { grid-template-columns: repeat(2, 1fr); }
+}
