@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,400;0,9..144,600;1,9..144,200;1,9..144,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=2">
+  <link rel="stylesheet" href="css/style.css?v=3">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Jess Linton">
   <meta property="og:title" content="Art Therapy — Jess Linton">
@@ -102,48 +102,139 @@
 
 <main id="main">
 
-  <!-- Slideshow -->
-  <div class="slideshow" aria-label="Art Therapy — slideshow of imagery">
-    <div class="slideshow__slide active">
-      <img src="https://images.squarespace-cdn.com/content/v1/53bfdc39e4b014ff51913091/1412776715811-0MAM2N9MFFE4KRO8RMSJ/photo+2.JPG" alt="Art Therapy session — painted hands">
+  <!-- ── 1. Hero: full-height split — photo left · dark panel right ── -->
+  <section class="at-hero">
+    <div class="at-hero__image">
+      <img
+        src="https://images.squarespace-cdn.com/content/v1/53bfdc39e4b014ff51913091/1412776715811-0MAM2N9MFFE4KRO8RMSJ/photo+2.JPG"
+        alt="Art therapy session — painted hands"
+        loading="eager"
+      >
     </div>
-    <div class="slideshow__slide">
-      <img src="https://images.squarespace-cdn.com/content/v1/53bfdc39e4b014ff51913091/1412777392466-UZ1TXSGPVVOUAC2I2AMR/Rising+sun+jpeg.jpg" alt="Rising Sun — artwork">
+    <div class="at-hero__panel">
+      <div class="at-hero__inner">
+        <span class="at-hero__eyebrow">HCPC Registered Art Psychotherapist</span>
+        <span class="at-hero__line" aria-hidden="true"></span>
+        <h1 class="at-hero__title">A creative<br>path to healing</h1>
+        <p class="at-hero__desc">Art therapy uses art-making as its primary mode of communication — helping you explore emotions, work through difficult experiences, and reconnect with yourself in a safe, supportive space.</p>
+        <div class="btn-row">
+          <a href="contact.html" class="btn btn--ghost">Get in touch</a>
+          <a href="what-is-art-therapy.html" class="btn btn--ghost btn--sm">Learn more</a>
+        </div>
+      </div>
     </div>
-    <div class="slideshow__slide">
-      <img src="https://images.squarespace-cdn.com/content/v1/53bfdc39e4b014ff51913091/1412777500187-5WNGOLS77IEGGJ6HBYTF/You%26MeWeCollide.jpg" alt="You and Me We Collide — artwork">
-    </div>
-    <div class="slideshow__content">
-      <h1 class="slideshow__title">Art Therapy</h1>
-    </div>
-    <div class="slideshow__dots">
-      <button class="slideshow__dot active" aria-label="Slide 1"></button>
-      <button class="slideshow__dot" aria-label="Slide 2"></button>
-      <button class="slideshow__dot" aria-label="Slide 3"></button>
-    </div>
-  </div>
+  </section>
 
-  <!-- Section navigation cards -->
-  <nav class="section-cards" aria-label="Art Therapy sections">
-    <a href="what-is-art-therapy.html" class="section-card reveal d1">
-      <span class="section-card__dot"></span>
-      <h2>What is Art Therapy?</h2>
-      <p>Understanding art therapy as a form of psychotherapy and its benefits for individuals and communities.</p>
-      <span class="section-card__arrow">→</span>
-    </a>
-    <a href="what-can-jess-offer.html" class="section-card reveal d2">
-      <span class="section-card__dot"></span>
-      <h2>What Can Jess Offer?</h2>
-      <p>Individual therapy, clinical supervision, professional consultation, and skill sharing.</p>
-      <span class="section-card__arrow">→</span>
-    </a>
-    <a href="what-else-do-i-need-to-know.html" class="section-card reveal d3">
-      <span class="section-card__dot"></span>
-      <h2>What else do I need to know?</h2>
-      <p>Practical information about location, session times, and costs. Sussex, UK.</p>
-      <span class="section-card__arrow">→</span>
-    </a>
-  </nav>
+  <!-- ── 2. Atmospheric intro quote ── -->
+  <section class="section">
+    <div class="container">
+      <div class="at-intro reveal">
+        <span class="eyebrow">About Art Therapy</span>
+        <blockquote>
+          "You don't need to be an artist. Art therapy is not about the end result — it's about what the process of making reveals."
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 3. Three editorial image cards — sub-page navigation ── -->
+  <section class="section section--surface">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Explore art therapy</span>
+        <a href="what-is-art-therapy.html" class="eyebrow" style="color: var(--ink-3); font-size: .68rem;">View all &rarr;</a>
+      </div>
+      <div class="at-cards">
+
+        <a href="what-is-art-therapy.html" class="at-card reveal d1">
+          <div class="at-card__img">
+            <img
+              src="https://images.squarespace-cdn.com/content/v1/53bfdc39e4b014ff51913091/1568925651350-WOMOPAC54Y3112WXP3V9/barge.png"
+              alt="What is Art Therapy — a barge on water"
+              loading="lazy"
+            >
+          </div>
+          <div class="at-card__body">
+            <span class="at-card__num">01</span>
+            <h2>What is Art Therapy?</h2>
+            <p>Understanding art therapy as a form of psychotherapy and how it differs from art-making as a hobby or studio practice.</p>
+            <span class="at-card__link">Read more <span aria-hidden="true">→</span></span>
+          </div>
+        </a>
+
+        <a href="what-can-jess-offer.html" class="at-card reveal d2">
+          <div class="at-card__img">
+            <img
+              src="https://images.squarespace-cdn.com/content/v1/53bfdc39e4b014ff51913091/1568472191200-LQBED7R4IA8LNI4N3G0C/Offer%2BELCIMG_1499.jpg"
+              alt="What Can Jess Offer — group session"
+              loading="lazy"
+            >
+          </div>
+          <div class="at-card__body">
+            <span class="at-card__num">02</span>
+            <h2>What Can Jess Offer?</h2>
+            <p>Individual therapy, clinical supervision, professional consultation, and skill sharing with organisations and practitioners.</p>
+            <span class="at-card__link">Read more <span aria-hidden="true">→</span></span>
+          </div>
+        </a>
+
+        <a href="what-else-do-i-need-to-know.html" class="at-card reveal d3">
+          <div class="at-card__img">
+            <img
+              src="https://images.squarespace-cdn.com/content/v1/53bfdc39e4b014ff51913091/1455536933004-LXQI6R3BDA7K8Y95YXK7/Untitled+%282%29.jpg"
+              alt="Practical information about sessions"
+              loading="lazy"
+            >
+          </div>
+          <div class="at-card__body">
+            <span class="at-card__num">03</span>
+            <h2>What else do I need to know?</h2>
+            <p>Practical information about location, session times, costs, and what to expect when you begin working together.</p>
+            <span class="at-card__link">Read more <span aria-hidden="true">→</span></span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 4. Split: image left · text right — Jess's approach ── -->
+  <section class="section">
+    <div class="container">
+      <div class="media-text">
+        <div class="media-col reveal-x">
+          <img
+            class="media-col__img media-col__img--wide"
+            src="https://images.squarespace-cdn.com/content/v1/53bfdc39e4b014ff51913091/1412777392466-UZ1TXSGPVVOUAC2I2AMR/Rising+Sun+jpeg.jpg"
+            alt="Rising Sun — artwork by Jess Linton"
+            loading="lazy"
+          >
+          <p class="media-col__caption"><em>Rising Sun</em> — Jess Linton</p>
+        </div>
+        <div class="text-col reveal">
+          <span class="eyebrow">Jess's Approach</span>
+          <h2>Creativity as a path to understanding</h2>
+          <p>Jess brings together her training as an HCPC Registered Art Psychotherapist with her lifelong practice as a visual artist. This dual perspective shapes the way she works — holding both the therapeutic and the creative with equal care.</p>
+          <p>Working with individuals and groups, she offers a space that is curious, non-judgemental, and deeply attentive to each person's needs and pace.</p>
+          <div class="btn-row">
+            <a href="about.html" class="btn btn--green">About Jess</a>
+            <a href="what-can-jess-offer.html" class="btn">What Jess offers</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 5. CTA: dark green band ── -->
+  <section class="at-cta reveal">
+    <span class="eyebrow">Take the first step</span>
+    <h2>Ready to begin?</h2>
+    <p>Sessions are held in Sussex, UK. Get in touch with any questions or to arrange a free initial conversation.</p>
+    <div class="btn-row btn-row--center">
+      <a href="contact.html" class="btn btn--ghost">Get in touch</a>
+      <a href="what-else-do-i-need-to-know.html" class="btn btn--ghost btn--sm">Practical information</a>
+    </div>
+  </section>
 
 </main>
 

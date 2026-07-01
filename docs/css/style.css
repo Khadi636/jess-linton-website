@@ -32,6 +32,7 @@
 @import 'components/contact.css';
 @import 'components/slideshow.css';
 @import 'components/footer.css';
+@import 'components/art-therapy.css';
 
 /* ── Responsive breakpoints ──────────────────────────── */
 @import 'responsive.css';

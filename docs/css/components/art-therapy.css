@@ -1,0 +1,304 @@
+/* ============================================================
+   css/components/art-therapy.css
+   Art Therapy landing page — dedicated layout components.
+   Uses existing design tokens; builds on existing grid/content
+   primitives. Colour system unchanged.
+   ============================================================ */
+
+/* ── Hero: image left · dark panel right ─────────────────── */
+.at-hero {
+  display: grid;
+  grid-template-columns: 52fr 48fr;
+  min-height: 100svh;
+  min-height: 100vh; /* fallback */
+  overflow: hidden;
+}
+
+.at-hero__image {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Top-to-bottom scrim — keeps white nav legible over the photo */
+.at-hero__image::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 200px;
+  background: linear-gradient(
+    to bottom,
+    rgba(14, 24, 18, 0.50) 0%,
+    rgba(14, 24, 18, 0.12) 60%,
+    transparent 100%
+  );
+  z-index: 1;
+}
+
+.at-hero__image img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 28%;
+  display: block;
+  transform: scale(1.04);
+  animation: atImageReveal 2.4s cubic-bezier(.16, 1, .3, 1) forwards;
+}
+@keyframes atImageReveal {
+  to { transform: scale(1); }
+}
+
+.at-hero__panel {
+  background: var(--green-dark);
+  display: flex;
+  align-items: center;
+  padding:
+    clamp(var(--s16), 7vw, var(--s32))
+    clamp(var(--s10), 5.5vw, var(--s24))
+    clamp(var(--s12), 5vw, var(--s24));
+}
+
+.at-hero__inner { max-width: 440px; }
+
+.at-hero__eyebrow {
+  display: block;
+  font-family: var(--f-body);
+  font-size: .7rem;
+  font-weight: 500;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--sand);
+  margin-bottom: var(--s6);
+  opacity: 0;
+  animation: atFadeUp .6s ease forwards .2s;
+}
+
+.at-hero__line {
+  display: block;
+  width: 32px;
+  height: 1.5px;
+  background: var(--sand);
+  margin-bottom: clamp(var(--s6), 2.5vw, var(--s10));
+  opacity: 0;
+  transform-origin: left;
+  animation: atLineIn .7s ease forwards .1s;
+}
+@keyframes atLineIn {
+  from { opacity: 0; transform: scaleX(0); }
+  to   { opacity: 1; transform: scaleX(1); }
+}
+
+.at-hero__title {
+  font-family: var(--f-display);
+  font-size: clamp(2.6rem, 4.8vw, 4.4rem);
+  font-weight: 200;
+  font-style: italic;
+  line-height: 1.04;
+  letter-spacing: -.022em;
+  color: var(--white);
+  margin-bottom: var(--s6);
+  opacity: 0;
+  animation: atFadeUp .9s cubic-bezier(.16, 1, .3, 1) forwards .3s;
+}
+
+.at-hero__desc {
+  font-size: clamp(.88rem, 1.1vw, .97rem);
+  line-height: 1.74;
+  color: rgba(255, 255, 255, .65);
+  max-width: 44ch;
+  margin-bottom: var(--s10);
+  opacity: 0;
+  animation: atFadeUp .7s ease forwards .52s;
+}
+
+.at-hero__inner .btn-row {
+  opacity: 0;
+  animation: atFadeUp .7s ease forwards .7s;
+}
+
+@keyframes atFadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Intro: centred atmospheric quote ─────────────────────── */
+.at-intro {
+  max-width: 660px;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.at-intro .eyebrow {
+  display: block;
+  margin-bottom: var(--s6);
+}
+
+.at-intro blockquote {
+  font-size: clamp(1.2rem, 2.3vw, 1.8rem);
+  color: var(--ink);
+  max-width: none;
+  padding-left: 0;
+  text-align: center;
+}
+.at-intro blockquote::before { display: none; }
+.at-intro blockquote::after {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 1.5px;
+  background: var(--sand);
+  margin: var(--s6) auto 0;
+}
+
+/* ── Editorial image cards ────────────────────────────────── */
+.at-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s8);
+}
+
+.at-card {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition:
+    box-shadow var(--dur) var(--ease-out),
+    transform var(--dur) var(--ease-out);
+}
+.at-card:hover {
+  box-shadow: 0 8px 40px rgba(19, 19, 16, .10);
+  transform: translateY(-4px);
+}
+
+.at-card__img {
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  flex-shrink: 0;
+}
+.at-card__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .65s var(--ease-out);
+}
+.at-card:hover .at-card__img img { transform: scale(1.05); }
+
+.at-card__body {
+  padding: var(--s6) var(--s8) var(--s8);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.at-card__num {
+  display: block;
+  font-family: var(--f-body);
+  font-size: .64rem;
+  font-weight: 600;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--sand);
+  margin-bottom: var(--s3);
+}
+
+.at-card__body h2 {
+  font-size: clamp(1.05rem, 1.5vw, 1.4rem);
+  line-height: 1.12;
+  letter-spacing: -.015em;
+  margin-bottom: var(--s3);
+}
+
+.at-card__body p {
+  font-size: .87rem;
+  line-height: 1.72;
+  color: var(--ink-3);
+  flex: 1;
+  margin-bottom: var(--s5);
+}
+
+.at-card__link {
+  font-family: var(--f-body);
+  font-size: .75rem;
+  font-weight: 500;
+  letter-spacing: .06em;
+  color: var(--green);
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  transition: color var(--dur) var(--ease-out),
+              gap var(--dur) var(--ease-out);
+}
+.at-card:hover .at-card__link {
+  color: var(--sand);
+  gap: var(--s4);
+}
+
+/* ── Large CTA band ───────────────────────────────────────── */
+.at-cta {
+  background: var(--green);
+  color: var(--white);
+  text-align: center;
+  padding: clamp(var(--s16), 9vw, var(--s32)) var(--s6);
+}
+
+.at-cta .eyebrow {
+  color: rgba(255, 255, 255, .55);
+  display: block;
+  margin-bottom: var(--s5);
+}
+
+.at-cta h2 {
+  font-family: var(--f-display);
+  font-size: clamp(2rem, 4.5vw, 3.6rem);
+  font-weight: 200;
+  font-style: italic;
+  color: var(--white);
+  line-height: 1.06;
+  letter-spacing: -.022em;
+  margin-bottom: var(--s5);
+}
+
+.at-cta p {
+  font-size: clamp(.88rem, 1.1vw, .97rem);
+  line-height: 1.72;
+  color: rgba(255, 255, 255, .65);
+  max-width: 48ch;
+  margin-inline: auto;
+  margin-bottom: var(--s10);
+}
+
+/* ─────────────────────────────────────────────────────────── */
+/*  Responsive                                                  */
+/* ─────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .at-hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+  .at-hero__image {
+    height: 56vh;
+    min-height: 320px;
+  }
+  .at-hero__panel {
+    padding: var(--s16) clamp(var(--s8), 6vw, var(--s16)) var(--s12);
+  }
+  .at-hero__inner { max-width: 580px; }
+  .at-cards { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  .at-hero__panel {
+    padding: var(--s12) var(--s6) var(--s12);
+  }
+  .at-hero__inner { max-width: 100%; }
+  .at-hero__desc { max-width: none; }
+  .at-cards { grid-template-columns: 1fr; gap: var(--s5); }
+  .at-cta { padding: var(--s16) var(--s6); }
+}
