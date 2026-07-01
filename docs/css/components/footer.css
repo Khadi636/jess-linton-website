@@ -1,70 +1,110 @@
 /* ============================================================
    css/components/footer.css
-   Site footer: dark green background, 4-column grid,
-   footer wordmark, tag-line, navigation links, and copyright bar.
+   Site footer: minimal, premium, dark green.
+   Single row (brand + social) above a slim copyright bar.
+   No navigation links — essential info only.
    ============================================================ */
 
-/* ============================================================
-   FOOTER
-   ============================================================ */
 .site-footer {
   background: var(--green-dark);
   color: var(--white);
-  padding-top: clamp(var(--s16), 6vw, var(--s24));
-  padding-bottom: var(--s8);
+  padding-block: clamp(var(--s10), 5vw, var(--s16));
   margin-top: clamp(var(--s20), 8vw, var(--s32));
 }
-.footer-grid {
-  display: grid;
-  grid-template-columns: 3fr 1fr 1fr 1fr;
-  gap: var(--s12);
-  padding-bottom: var(--s12);
-  border-bottom: 1px solid rgba(255,255,255,.07);
-  margin-bottom: var(--s8);
-}
-.footer-brand {}
-.footer-wordmark {
-  font-family: var(--f-display);
-  font-size: 1.5rem;
-  font-weight: 200;
-  font-style: italic;
-  color: rgba(255,255,255,.9);
-  display: block;
-  margin-bottom: var(--s4);
-  letter-spacing: -.01em;
-}
-.footer-tagline {
-  font-size: .8rem;
-  line-height: 1.7;
-  color: rgba(255,255,255,.62);
-  max-width: 30ch;
-}
-.footer-col-label {
-  font-size: .67rem;
-  font-weight: 600;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.55);
-  margin-bottom: var(--s5);
-  display: block;
-}
-.footer-links { display: flex; flex-direction: column; gap: var(--s3); }
-.footer-links a {
-  font-size: .82rem;
-  color: rgba(255,255,255,.70);
-  transition: color var(--dur);
-}
-.footer-links a:hover { color: var(--white); }
-.footer-bottom {
+
+/* ── Brand + social row ───────────────────────────────────── */
+.footer-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--s6);
-  flex-wrap: wrap;
-}
-.footer-bottom p {
-  font-size: .7rem;
-  color: rgba(255,255,255,.45);
-  letter-spacing: .04em;
+  gap: var(--s8);
+  padding-bottom: clamp(var(--s6), 3vw, var(--s8));
+  border-bottom: 1px solid rgba(255, 255, 255, .08);
+  margin-bottom: var(--s5);
 }
 
+/* ── Wordmark ─────────────────────────────────────────────── */
+.footer-wordmark {
+  font-family: var(--f-display);
+  font-size: 1.25rem;
+  font-weight: 200;
+  font-style: italic;
+  color: rgba(255, 255, 255, .92);
+  letter-spacing: -.01em;
+  display: block;
+  margin-bottom: var(--s2);
+  transition: color var(--dur);
+}
+.footer-wordmark:hover { color: var(--white); }
+
+.footer-tagline {
+  font-size: .72rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, .48);
+  letter-spacing: .01em;
+}
+
+/* ── Social icons ─────────────────────────────────────────── */
+.footer-social {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  flex-shrink: 0;
+}
+
+.footer-social__link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: rgba(255, 255, 255, .5);
+  border-radius: 8px;
+  transition:
+    color var(--dur) var(--ease-out),
+    background var(--dur) var(--ease-out),
+    transform var(--dur) var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+}
+.footer-social__link:hover,
+.footer-social__link:focus-visible {
+  color: var(--white);
+  background: rgba(255, 255, 255, .08);
+  transform: translateY(-2px);
+}
+.footer-social__link:focus-visible {
+  outline: 2px solid var(--sand);
+  outline-offset: 2px;
+}
+.footer-social__link svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+  display: block;
+  flex-shrink: 0;
+}
+
+/* ── Copyright bar ────────────────────────────────────────── */
+.footer-bottom p {
+  font-size: .68rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, .35);
+  letter-spacing: .03em;
+}
+
+/* ─────────────────────────────────────────────────────────── */
+/*  Responsive                                                  */
+/* ─────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--s5);
+  }
+
+  /* Larger touch targets on mobile */
+  .footer-social__link { width: 44px; height: 44px; }
+  .footer-social { gap: var(--s2); margin-left: calc(var(--s2) * -1); }
+
+  .footer-bottom p { font-size: .65rem; }
+}
