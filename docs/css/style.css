@@ -36,5 +36,8 @@
 /* ── Responsive breakpoints ──────────────────────────── */
 @import 'responsive.css';
 
+/* ── Client preview panel (remove after approval) ────── */
+@import 'components/preview-panel.css';
+
 /* ── Mobile bottom navigation ────────────────────────── */
 @import 'components/bottom-nav.css';
