@@ -12,8 +12,8 @@
    PAGE HEADER (interior pages)
    ============================================================ */
 .page-header {
-  padding-top: clamp(var(--s16), 10vw, var(--s40));
-  padding-bottom: clamp(var(--s8), 4vw, var(--s16));
+  padding-top: clamp(var(--s6), 3vw, var(--s10));
+  padding-bottom: clamp(var(--s5), 2vw, var(--s8));
   border-bottom: 1px solid var(--border);
   overflow: hidden;
 }
