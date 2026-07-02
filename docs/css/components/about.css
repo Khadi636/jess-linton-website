@@ -1,0 +1,70 @@
+/* ============================================================
+   css/components/about.css
+   About page hero with background image.
+   ============================================================ */
+
+.about-hero {
+  position: relative;
+  height: clamp(300px, 42vw, 520px);
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+}
+
+.about-hero__bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center 40%;
+  background-repeat: no-repeat;
+}
+
+.about-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(30, 51, 39, 0.80) 0%,
+    rgba(30, 51, 39, 0.45) 45%,
+    rgba(30, 51, 39, 0.12) 100%
+  );
+}
+
+.about-hero__content {
+  position: relative;
+  z-index: 1;
+  padding-bottom: clamp(var(--s10), 4vw, var(--s16));
+}
+
+.about-hero__eyebrow {
+  color: rgba(255, 255, 255, 0.65);
+  margin-bottom: var(--s4);
+  display: block;
+}
+
+.about-hero__content h1 {
+  font-family: var(--f-display);
+  font-size: clamp(3.2rem, 8vw, 7rem);
+  font-weight: 200;
+  font-style: italic;
+  color: var(--white);
+  letter-spacing: -.03em;
+  line-height: 1;
+  margin: 0 0 var(--s4);
+}
+
+.about-hero__tagline {
+  font-size: .88rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.72);
+  letter-spacing: .04em;
+  line-height: 1.5;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .about-hero {
+    height: clamp(220px, 60vw, 340px);
+  }
+}

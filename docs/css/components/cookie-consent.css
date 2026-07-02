@@ -1,0 +1,106 @@
+/* ============================================================
+   css/components/cookie-consent.css
+   GDPR / UK GDPR cookie consent banner.
+   Banner is injected by js/modules/cookie-consent.js.
+   ============================================================ */
+
+.cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9000;
+  background: var(--green-dark);
+  padding: var(--s5) var(--s6);
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, .18);
+  transform: translateY(0);
+  transition: transform .4s var(--ease-out), opacity .4s var(--ease-out);
+}
+
+.cookie-banner--hide {
+  transform: translateY(110%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.cookie-banner__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: var(--s8);
+  flex-wrap: wrap;
+}
+
+.cookie-banner__text {
+  flex: 1;
+  font-size: .85rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, .82);
+  min-width: 260px;
+  margin: 0;
+}
+
+.cookie-banner__text a {
+  color: var(--sand);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.cookie-banner__text a:hover { opacity: .8; }
+
+.cookie-banner__actions {
+  display: flex;
+  gap: var(--s3);
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.cookie-banner__btn {
+  font-family: var(--f-body);
+  font-size: .76rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  padding: .6rem var(--s6);
+  border-radius: 100px;
+  transition: background var(--dur), color var(--dur), transform var(--dur);
+  white-space: nowrap;
+}
+
+.cookie-banner__btn--primary {
+  background: var(--sand);
+  color: var(--white);
+}
+
+.cookie-banner__btn--primary:hover {
+  background: #d4a06a;
+  transform: translateY(-1px);
+}
+
+.cookie-banner__btn--secondary {
+  background: transparent;
+  color: rgba(255, 255, 255, .7);
+  border: 1px solid rgba(255, 255, 255, .22);
+}
+
+.cookie-banner__btn--secondary:hover {
+  background: rgba(255, 255, 255, .08);
+  color: var(--white);
+}
+
+@media (max-width: 768px) {
+  .cookie-banner {
+    bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+    padding: var(--s4) var(--s5);
+  }
+
+  .cookie-banner__inner { gap: var(--s4); }
+
+  .cookie-banner__text { font-size: .82rem; }
+
+  .cookie-banner__actions { width: 100%; justify-content: flex-end; }
+}

@@ -26,6 +26,9 @@ import './modules/scroll-reveal.js';
 import './modules/slideshow.js';
 import './modules/lightbox.js';
 import './modules/bottom-nav.js';
+import { initCookieConsent } from './modules/cookie-consent.js';
+
+initCookieConsent();
 
 // Client design preview panel — remove these two lines after final approval
 import { initPreviewPanel } from './modules/preview-panel.js';

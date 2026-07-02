@@ -35,6 +35,8 @@
 @import 'components/art-therapy.css';
 @import 'components/artwork.css';
 @import 'components/community.css';
+@import 'components/about.css';
+@import 'components/cookie-consent.css';
 
 /* ── Responsive breakpoints ──────────────────────────── */
 @import 'responsive.css';

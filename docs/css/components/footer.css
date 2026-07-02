@@ -85,12 +85,38 @@
 }
 
 /* ── Copyright bar ────────────────────────────────────────── */
+.footer-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
 .footer-bottom p {
   font-size: .68rem;
   line-height: 1.7;
   color: rgba(255, 255, 255, .35);
   letter-spacing: .03em;
 }
+
+/* ── Legal links ──────────────────────────────────────────── */
+.footer-legal {
+  display: flex;
+  gap: var(--s6);
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: var(--s3);
+}
+
+.footer-legal a {
+  font-size: .72rem;
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, .45);
+  transition: color var(--dur);
+}
+
+.footer-legal a:hover { color: rgba(255, 255, 255, .75); }
 
 /* ─────────────────────────────────────────────────────────── */
 /*  Responsive                                                  */
