@@ -10,11 +10,13 @@
   position: fixed;
   inset: 0;
   background: var(--green-dark);
-  z-index: 190;
+  z-index: 10000;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: var(--s16) clamp(var(--s8), 8vw, var(--s28));
+  justify-content: flex-start;
+  padding: clamp(var(--s16), 12vh, var(--s24)) clamp(var(--s8), 8vw, var(--s28)) clamp(var(--s12), 8vh, var(--s20));
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
