@@ -76,3 +76,87 @@
 .article-item__title { font-size: .9rem; color: var(--ink-3); line-height: 1.62; }
 .article-item__title em { color: var(--ink-2); font-style: normal; font-weight: 500; }
 
+/* ============================================================
+   POST / ARTICLE CARD GRID  (blog.html + articles.html)
+   ============================================================ */
+.post-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.post-card {
+  background: var(--white);
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 1px 3px rgba(30,51,39,.07);
+}
+
+.post-card__img {
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  border-radius: 10px 10px 0 0;
+  flex-shrink: 0;
+}
+
+.post-card__img img {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.post-card__body {
+  padding: 18px 20px 22px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  font-size: 1rem;
+}
+
+.post-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.post-card__label {
+  font-family: var(--f-body);
+  font-size: .65rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--sand);
+}
+
+.post-card__meta time {
+  font-size: .72rem;
+  color: var(--ink-3);
+}
+
+.post-card__title {
+  font-family: var(--f-display);
+  font-size: clamp(1rem, 1.8vw, 1.15rem);
+  font-weight: 200;
+  font-style: italic;
+  color: var(--ink);
+  line-height: 1.35;
+  margin: 0 0 8px;
+}
+
+.post-card__excerpt {
+  font-size: .88rem;
+  line-height: 1.65;
+  color: var(--ink-3);
+  margin: 0;
+}
+
+@media (max-width: 700px) {
+  .post-grid { grid-template-columns: 1fr; }
+}
+
