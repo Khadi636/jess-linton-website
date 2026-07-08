@@ -160,3 +160,11 @@
   .post-grid { grid-template-columns: 1fr; }
 }
 
+/* ── Text-only card (no image) ──────────────────────── */
+.post-card--text {
+  border-top: 2px solid var(--sand);
+}
+.post-card--text .post-card__body {
+  padding: 22px 20px 26px;
+}
+
