@@ -30,6 +30,6 @@ import { initCookieConsent } from './modules/cookie-consent.js';
 
 initCookieConsent();
 
-// Client design preview panel — remove these two lines after final approval
-import { initPreviewPanel } from './modules/preview-panel.js';
-initPreviewPanel();
+// Client design preview panel — retired after approval
+// import { initPreviewPanel } from './modules/preview-panel.js';
+// initPreviewPanel();

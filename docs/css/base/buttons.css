@@ -25,6 +25,7 @@
   border: 1.5px solid var(--ink);
   color: var(--ink);
   background: transparent;
+  border-radius: 6px;
   transition:
     background var(--dur) var(--ease-out),
     color var(--dur) var(--ease-out),

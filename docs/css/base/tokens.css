@@ -28,8 +28,8 @@
   --sand-lt:      #F5EBE0;
 
   /* Typography */
-  --f-display:    'Fraunces', Georgia, serif;
-  --f-body:       'Inter', system-ui, sans-serif;
+  --f-display:    'Libre Baskerville', Georgia, serif;
+  --f-body:       'Manrope', system-ui, sans-serif;
 
   /* Container */
   --max-w:        1280px;

@@ -1,7 +1,7 @@
 /* ============================================================
    css/style.css  —  Import hub
-   Jess Linton website — Design System v3
-   Fonts: Fraunces (display) + Inter (body)
+   Jess Linton website — Design System v4
+   Fonts: Libre Baskerville (display) + Manrope (body)
 
    This file does not contain CSS rules directly.
    It imports all partial stylesheets in the correct cascade order.
@@ -12,11 +12,11 @@
    ============================================================ */
 
 /* ── Foundation ─────────────────────────────────────── */
-@import 'base/tokens.css';
+@import 'base/tokens.css?v=4';
 @import 'base/reset.css';
-@import 'base/typography.css';
+@import 'base/typography.css?v=4';
 @import 'base/utilities.css';
-@import 'base/buttons.css';
+@import 'base/buttons.css?v=4';
 
 /* ── Navigation ─────────────────────────────────────── */
 @import 'components/nav.css?v=2';
@@ -42,7 +42,7 @@
 @import 'responsive.css';
 
 /* ── Client preview panel (remove after approval) ────── */
-@import 'components/preview-panel.css';
+/* @import 'components/preview-panel.css'; — retired after client approval */
 
 /* ── Mobile bottom navigation ────────────────────────── */
 @import 'components/bottom-nav.css';
